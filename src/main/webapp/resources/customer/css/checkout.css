@@ -1,0 +1,47 @@
+.padding-noty{
+    padding: 0% !important;
+}
+.margin-noty{
+    margin:0% !important;
+}
+
+#header{
+    width:100%;
+}
+#banner{
+    width: 100%;
+    background: url("../img/blur-bg.jpeg") no-repeat 100% 100%;
+    padding: 5% 2%;
+}
+#billing{
+    background: #F8F9FA;
+}
+#footer{
+    padding: 2% 2%;
+    background-color: #343A40;
+}
+
+#footer>h3{
+    font-size: 1rem;
+    text-align: center;
+    color: #fff;
+    font-family: sans-serif;
+}
+#footer>h3>a{
+    color: #b48aec;
+    text-decoration: none;
+    font-size: 1.2rem;
+}
+#footer>a:hover{
+    text-decoration: none;  
+}
+#footer>.social{
+    text-align: center;
+}
+#footer>.social>a{
+    color: #fff;
+    text-decoration: none;
+    background-color: transparent;
+    font-size: 1.1rem;
+    padding-right: 3px;
+}

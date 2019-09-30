@@ -1,0 +1,91 @@
+#make-spa{
+    width: 100%;
+    margin:2% 0%;
+}
+
+.title-main{
+    margin-bottom: 1.5em!important;
+}
+.title-main>.tittle-main-agile{
+    font-size: 25px;
+    letter-spacing: 2px;
+    text-shadow: 1px 1px 2px #563737;
+    color:#000;
+}
+
+.background{
+    background:#f5f5f5;
+    padding:2% 1%;
+}
+.make-form{
+    width: 100%;
+}
+.form-title>h5{
+    color:#6b6b6b;
+    font-size: 16px;
+    text-transform: capitalize;
+    letter-spacing: 1px;
+    font-weight: 600;
+    margin: 15px 0 6px;
+}
+.form-conent-service>select.name{
+    /* margin-right: 12px!important; */
+    box-shadow: none !important;
+}
+
+.form-conent-service select.form-control{
+    -webkit-appearance: none;
+}
+
+.form-conent-service input[type="text"],
+.form-conent-service input[type="date"],
+.form-conent-service input[type="email"] ,
+.form-conent-service select.form-control{
+    width: 100%;
+    padding: 6px 12px;
+    color: #999;
+    outline: none;
+    font-size: 14px;
+    border: none;
+    border-bottom: 2px solid #fd0006;
+    margin: .3em 0em 1em 0em;
+    font-family: 'Roboto', sans-serif;
+    background: transparent;
+    
+}
+.make-form > form > input[type="submit"]{
+    color: #fff;
+    border: none;
+    outline: none;
+    padding: 10px 48px;
+    margin-top: 2em;
+    font-size: 13px;
+    background: #0f0f10;
+    border: 2px solid #000000;
+    transition: 0.5s all;
+    -webkit-transition: 0.5s all;
+    -o-transition: 0.5s all;
+    -moz-transition: 0.5s all;
+    -ms-transition: 0.5s all;
+    text-transform: uppercase;
+    letter-spacing: 1px
+}
+.make-form > form > input[type="submit"]:hover{
+    background: transparent;
+	color:#fd0006;
+	border-color:#fd0006;
+	transition: 0.5s all;
+    -webkit-transition: 0.5s all;
+    -o-transition: 0.5s all;
+    -moz-transition: 0.5s all;
+    -ms-transition: 0.5s all; 
+}
+.checkIn > select{
+    padding: 2% 4%;
+    border: 2px solid #fd0006;
+    font-size: 14px;
+    color: #999;
+    background: transparent;
+    font-family: 'Roboto', sans-serif;
+    -webkit-appearance: button-bevel;
+}
