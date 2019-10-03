@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ptit.laptrinhjavaweb.entity.BookingEntity;
+import ptit.laptrinhjavaweb.entity.CustomerEntity;
 import ptit.laptrinhjavaweb.entity.StoreEntity;
 import ptit.laptrinhjavaweb.repository.IBookingRepository;
 import ptit.laptrinhjavaweb.repository.IStoreRepository;
@@ -31,6 +32,11 @@ public class BookingService implements IBookingService{
 		StoreEntity storeEntity = storeRepository.getStore(3);
 		booking.setStore(storeEntity);
 		return bookingRepository.saveBooing(booking);
+	}
+
+	@Override
+	public List<BookingEntity> getListBookingClause(CustomerEntity customer) {
+		return bookingRepository.getBookingClause(customer);
 	}
 	
 }

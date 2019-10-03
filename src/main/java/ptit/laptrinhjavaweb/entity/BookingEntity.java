@@ -185,5 +185,13 @@ public class BookingEntity {
 		this.bookingStatus = bookingStatus;
 	}
 
+	@Override
+	public String toString() {
+		return "BookingEntity [id=" + id + ", bookingDate=" + bookingDate + ", minutes=" + minutes + ", startTime="
+				+ startTime + ", endTime=" + endTime + ", createdDate=" + createdDate + ", modifieddate=" + modifieddate
+				+ ", createdBy=" + createdBy + ", modifiedBy=" + modifiedBy + ", store=" + store + ", service="
+				+ service + ", customer=" + customer + ", bookingStatus=" + bookingStatus + "]";
+	}
+
 	
 }

@@ -38,8 +38,8 @@ public class ServiceRepository implements IServiceRepository {
 	}
 
 	@Override
+	@Transactional
 	public ServiceEntity getService(int id) {
-		
 		try {
 			session = sessionFactory.getCurrentSession();
 			ServiceEntity service = session.get(ServiceEntity.class, id);

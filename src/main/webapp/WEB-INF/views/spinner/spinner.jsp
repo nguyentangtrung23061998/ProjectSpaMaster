@@ -4,6 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta http-equiv="refresh" content="4;url=${pageContext.request.contextPath}/customer/home">
 <title>Trang Chủ</title>
 <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/resources/customer/css/spinner.css"  media="all" />
 </head>

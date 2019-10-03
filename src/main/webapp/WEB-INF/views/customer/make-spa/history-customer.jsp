@@ -57,8 +57,9 @@
 										data-letters="History">History</span></a></li>
 								<li><a href="profile" class="link-kumya"><span
 										data-letters="Profile">Profile</span></a></li>
-								<li><a href="${pageContext.request.contextPath }" class="link-kumya"><span
-										data-letters="Sign Out">Sign Out</span></a></li>
+								<li><a href="${pageContext.request.contextPath }"
+									class="link-kumya"><span data-letters="Sign Out">Sign
+											Out</span></a></li>
 							</ul>
 							<div class="clearfix"></div>
 						</div>
@@ -78,60 +79,51 @@
 			<div class="row" style="margin-bottom: 2%">
 				<h3 class="wthree-title">History</h3>
 			</div>
-			  <div class="container emp-profile">
-                <div class="container">
-                    <table class="table table-hover">
-                        <thead>
-                            <tr class="table-danger">
-                                <th>Month</th>
-                                <th>Number of Sales</th>
-                                <th>Amount</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr class="table-primary">
-                                <th scope="row">Jan</th>
-                                <td>105</td>
-                                <td>$15,000.00</td>
-                            </tr>
-                            <tr class="table-secondary">
-                                <th scope="row">Feb</th>
-                                <td>95</td>
-                                <td>$12,000.00</td>
-                            </tr>
-                            <tr class="table-success">
-                                <th scope="row">Mar</th>
-                                <td>150</td>
-                                <td>$20,000.00</td>
-                            </tr>
-                            <tr class="table-warning">
-                                <th scope="row">Apr</th>
-                                <td>50</td>
-                                <td>$30,000.00</td>
-                            </tr>
-                            <tr class="table-info">
-                                <th scope="row">May</th>
-                                <td>80</td>
-                                <td>$15,000.00</td>
-                            </tr>
-                            <tr class="table-light">
-                                <th scope="row">Jun</th>
-                                <td>110</td>
-                                <td>$22,000.00</td>
-                            </tr>
-                            <tr class="table-dark">
-                                <th scope="row">Jun</th>
-                                <td>110</td>
-                                <td>$22,000.00</td>
-                            </tr>
-                            <tr class="table-danger">
-                                <th colspan="2" scope="row">Grand Total</th>
-                                <td>$114,000.00</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+			<div class="container emp-profile">
+				<div class="container">
+					<table class="table table-hover">
+						<thead>
+							<tr class="table-danger">
+								<th>#</th>
+								<th>Booking date</th>
+								<th>Minutes</th>
+								<th>Start time</th>
+								<th>End time</th>
+								<th>Booking Status</th>
+								<th>Action</th>
+							</tr>
+						</thead>
+						<tbody>
+							<c:forEach var="book" varStatus="index" items="${booking}">
+								<tr class="table-primary">
+									<th scope="row">${index.count}</th>
+									<td>${book.bookingDate }</td>
+									<td>${book.minutes }</td>
+									<td>${book.startTime }</td>
+									<td>${book.endTime }</td>
+									<td>
+										<c:if test="${book.bookingStatus.id == 1}" >
+											Booking
+										</c:if>
+										<c:if test="${book.bookingStatus.id == 2}" >
+											Cancelled
+										</c:if>
+										<c:if test="${book.bookingStatus.id == 3}" >
+											Successful
+										</c:if>
+										<c:if test="${book.bookingStatus.id == 4}" >
+											No Show
+										</c:if>
+									</td>
+									<td>
+										<button class="btn btn-primary">No Show</button>
+									</td>
+								</tr>
+							</c:forEach>
+						</tbody>
+					</table>
+				</div>
+			</div>
 		</div>
 	</div>
 	<!-- //gallery -->

@@ -55,8 +55,8 @@ public class BookingSpaController {
 		return "customer/make-spa/make-spa";
 	}
 	
-
-
+	
+	
 	@RequestMapping(value = "/make-spa", method = RequestMethod.POST)
 	public String postMakeSpa(@RequestParam("bookingDate") String date, @RequestParam("service") Integer idService,
 			@RequestParam("hour") Integer hour, @RequestParam("minutes") Integer minutes, Model model,HttpServletRequest req) {
@@ -86,7 +86,6 @@ public class BookingSpaController {
 		
 		bookingEntity.setEndTime("13");
 		bookingService.saveBooing(bookingEntity);
-		// return "customer/make-spa/make-spa";
 		return "redirect:/customer/make-spa";
 	}
 }

@@ -60,7 +60,6 @@ public class StoreRepository implements IStoreRepository{
 	@Override
 	@Transactional
 	public StoreEntity getStore(int theId) {
-
 		try {
 			session = sessionFactory.getCurrentSession();
 			StoreEntity theStore = session.get(StoreEntity.class, theId);
