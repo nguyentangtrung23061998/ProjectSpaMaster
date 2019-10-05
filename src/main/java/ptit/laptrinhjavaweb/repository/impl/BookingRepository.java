@@ -7,7 +7,6 @@ import javax.transaction.Transactional;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -23,18 +22,25 @@ public class BookingRepository implements IBookingRepository{
 	SessionFactory sessionFactory;
 	
 	@Override
+	@Transactional
 	public List<BookingEntity> getBooking() {
-		// TODO Auto-generated method stub
-		return null;
+		Session session = sessionFactory.getCurrentSession();
+		try { 
+			Query<BookingEntity> listBook = session.createQuery("from BookingEntity",BookingEntity.class);
+			List<BookingEntity> getBook = listBook.getResultList();
+			return getBook;
+		} catch (Exception e) {
+			e.printStackTrace();
+			session=sessionFactory.openSession();
+		}
+		return new ArrayList<>();
 	}
 
 	@Override
 	@Transactional
 	public BookingEntity saveBooing(BookingEntity booking) {
-		Session session;
-//		session = sesionFactory.getCurrentSession();
+		Session session = sessionFactory.getCurrentSession();
 		try {
-			session = sessionFactory.getCurrentSession();
 			session.saveOrUpdate(booking);
 			return booking;
 		} catch (Exception e) {

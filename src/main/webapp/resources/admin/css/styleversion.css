@@ -1,0 +1,45 @@
+.customer-title{
+	display: flex;
+	justify-content: space-between;
+	width: 97%;
+	margin: auto;
+}
+.customer-title > button{
+	background: #385ECE;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    color: #fafafa;
+    border-radius: 50%;
+    height: 30px;
+    font-size: 20px;
+    font-weight: bold;
+    width: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: 0px 1px 5px 3px #4d52769e;
+    outline:none;
+}
+.title_header{
+	color: #3737e3 !important;
+    padding: 0.5rem 1rem !important;
+    font-size: 1rem !important; 
+}
+.title_header > h4{
+	font-size: 1.4rem !important;
+}
+.stylelabel{
+	color: #3737e3;
+}
+.styleinput{
+	display: block;
+    width: 100%;
+    outline: none;
+    border: 1px solid #2762e7;
+    border-radius: 5px;
+    color: #596684;
+    padding: 1% 2%;
+    font-size: 1rem;
+}
