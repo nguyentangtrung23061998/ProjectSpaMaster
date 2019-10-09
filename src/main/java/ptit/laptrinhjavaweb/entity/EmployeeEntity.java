@@ -17,6 +17,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 @Table(name = "employee")
 public class EmployeeEntity {
@@ -59,11 +61,13 @@ public class EmployeeEntity {
 
 	@ManyToOne
 	@JoinColumn(name = "storeid")
+	@JsonBackReference
 	private StoreEntity store;
 
 	@ManyToMany(fetch=FetchType.LAZY,
 			cascade= {CascadeType.PERSIST,CascadeType.MERGE,
 			CascadeType.DETACH,CascadeType.REFRESH})
+	@JsonBackReference
 	@JoinTable(
 			name="employe_service",
 			joinColumns=@JoinColumn(name="employeeid"),

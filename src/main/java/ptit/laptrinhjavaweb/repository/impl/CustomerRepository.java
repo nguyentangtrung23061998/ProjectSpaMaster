@@ -9,11 +9,9 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.stereotype.Repository;
 
 import ptit.laptrinhjavaweb.entity.CustomerEntity;
-import ptit.laptrinhjavaweb.entity.StoreEntity;
 import ptit.laptrinhjavaweb.repository.ICustomerRepository;
 
 @Repository
@@ -25,7 +23,7 @@ public class CustomerRepository implements ICustomerRepository{
 	
 	@Override
 	@Transactional
-	public List<CustomerEntity> getCustomer() {
+	public List<CustomerEntity> getCustomers() {
 		try {
 			session = sessionFactory.getCurrentSession();
 			Query<CustomerEntity> theQuery = session.createQuery("from CustomerEntity", CustomerEntity.class);
@@ -57,17 +55,77 @@ public class CustomerRepository implements ICustomerRepository{
 		try {
 			session = sessionFactory.getCurrentSession();
 			CustomerEntity customer = session.get(CustomerEntity.class, theId);
+			System.out.println(customer);
+//			session.clear();
 			return customer;
 		} catch (Exception e) {
+			e.printStackTrace();
 			session = sessionFactory.openSession();
 		}
 		return new CustomerEntity();
 	}
 
 	@Override
+	@Transactional
 	public void deleteCustomer(int theId) {
-		// TODO Auto-generated method stub
+		session=sessionFactory.getCurrentSession();
+		try {
+//			Query query =session.createQuery("delete from CustomerEntity where id=:theId");
+			CustomerEntity customer = session.get(CustomerEntity.class, theId);
+			//customer.addBooking(tempCustomer);
+			if(customer != null) {
+				session.delete(customer);
+			}
+//			query.setParameter("theId", theId);
+//			query.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
+	}
+
+	@Override
+	@Transactional
+	public CustomerEntity findUser(String username, String password) {
+		session =sessionFactory.getCurrentSession();
+		String hql = "from CustomerEntity as cus where cus.username=:username and cus.password=:password";
+		
+		boolean isValidQuery = false;
+		try {
+			Query query = session.createQuery(hql);
+			query.setParameter("username",username);
+			query.setParameter("password", password);
+			List<CustomerEntity> cus = query.getResultList();
+			System.out.println(cus);
+			//CustomerEntity customer = (CustomerEntity) query.uniqueResult();
+//			List userObj = query.list();
+//			if(userObj != null && userObj.size()>0) {
+//				isValidQuery=true;
+//			}
+//			CustomerEntity customer = session.get(CustomerEntity.class, 15);
+			session.clear();
+			return cus.get(0);
+		} catch (Exception e) {
+			// TODO: handle exception
+//			isValidQuery=false;
+			e.printStackTrace();
+		}
+		return new CustomerEntity();
+
+	}
+
+	@Override
+	@Transactional
+	public CustomerEntity updateCustomer(CustomerEntity customer) {
+		session = sessionFactory.getCurrentSession();
+		try {
+			session.update(customer);
+			return customer;
+		} catch (Exception e) {
+			// TODO: handle exception
+			session= sessionFactory.openSession();
+		}
+		return new CustomerEntity();
 	}
 
 //	@Override

@@ -6,11 +6,13 @@ import ptit.laptrinhjavaweb.entity.CustomerEntity;
 import ptit.laptrinhjavaweb.entity.StoreEntity;
 
 public interface ICustomerRepository {
-	public List<CustomerEntity> getCustomer();
+	public List<CustomerEntity> getCustomers();
 	
-//	public CustomerEntity getInfoCustomer(String username, String passsword);
+	public CustomerEntity findUser(String username, String password);
 	
 	public void saveCustomer(CustomerEntity customer);
+	
+	public CustomerEntity updateCustomer(CustomerEntity customer);
 
 	public CustomerEntity getCustomer(int theId);
 

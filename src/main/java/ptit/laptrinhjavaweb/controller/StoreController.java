@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import ptit.laptrinhjavaweb.entity.StoreEntity;
+import ptit.laptrinhjavaweb.entity.StorekeeperEntity;
 import ptit.laptrinhjavaweb.repository.IStoreRepository;
+import ptit.laptrinhjavaweb.service.IStoreKeeperService;
 import ptit.laptrinhjavaweb.service.IStoreService;
 
 //@Controller
@@ -26,6 +28,14 @@ public class StoreController {
 	
 	@Autowired
 	private IStoreRepository storeService;
+	
+	@Autowired
+	private IStoreKeeperService storeKeeperService;
+	
+	@GetMapping("listStore/{listId}")
+	public StorekeeperEntity listStoreID(@PathVariable int listId) {
+		return storeKeeperService.getStoreKeeper(listId);
+	}
 	
 	@GetMapping("/list")
 	public List<StoreEntity> showInfo() {

@@ -302,26 +302,33 @@
 										<thead>
 											<tr>
 												<th>#</th>
-												<th>Bookingdate</th>
-												<th>Customer</th>
-												<th>Sevice</th>
-												<th>Start Time</th>
-												<th>End Time</th>
-												<th>Minutes</th>
-
+												<th>Username</th>
+												<th>Password</th>
+												<th>Email</th>
+												<th>Telephone</th>
+												<th>Action</th>
 											</tr>
 										</thead>
 
 										<tbody>
-											<c:forEach var="b" varStatus="index" items="${booking}">
+											<c:forEach var="c" varStatus="index" items="${listCus}">
+												<c:url var="updateLink"
+													value="/admin/customer/update/${c.id }">
+													<c:param name="customerId" value="${c.id}" />
+												</c:url>
+												<c:url var="deleteLink" value="/admin/customer/delete">
+													<c:param name="customerId" value="${c.id}" />
+												</c:url>
+
 												<tr>
 													<td>${index.count}</td>
-													<td>${b.bookingDate}</td>
-													<td>${b.customer.username}</td>
-													<td>${b.service.nameService}</td>
-													<td>${b.startTime}</td>
-													<td>${b.endTime}</td>
-													<td>${b.minutes}</td>
+													<td>${c.username}</td>
+													<td>${c.password}</td>
+													<td>${c.email}</td>
+													<td>${c.telephone}</td>
+													<td><a data-toggle="modal" data-target="#editCus"
+														onclick="updateCustomer(${c.id})">Update</a> <a
+														href="${deleteLink}">Delete</a></td>
 												</tr>
 											</c:forEach>
 										</tbody>
@@ -386,38 +393,110 @@
 				<div class="modal-content">
 					<div class="modal-header title_header">
 						<h4 class="modal-title">Customer</h4>
-						<button type="button" class="close" data-dismiss="modal"x
+						<button type="button" class="close" data-dismiss="modal" x
 							id="btnAddClose">&times;</button>
 					</div>
 
 					<!-- Modal body -->
 					<div class="modal-body">
-						<form id="formEdit">
+						<form:form
+							action="${pageContext.request.contextPath}/admin/customer"
+							method="POST" modelAttribute="customer">
 							<div class="form-group">
-								<label class="stylelabel">User name: </label> <input
-									class="styleinput" name="username" required type="text">
+								<label class="stylelabel">User name: </label>
+								<form:input id="inputUsername" type="text"
+									placeholder="Username..." path="username" class="styleinput" />
 							</div>
 							<div class="form-group">
-								<label class="stylelabel">Password: </label> <input
-									class="styleinput" name="password" required type="text">
+								<label class="stylelabel">Password: </label>
+								<form:input class="styleinput" path="password" type="text" />
 							</div>
 							<div class="form-group">
-								<label class="stylelabel">Email: </label> <input
-									class="styleinput" name="email" required type="text">
+								<label class="stylelabel">Email: </label>
+								<form:input class="styleinput" path="email" type="text" />
 							</div>
 							<div class="form-group">
-								<label class="stylelabel">Telephone: </label> <input
-									class="styleinput" name="telephone" required type="text">
+								<label class="stylelabel">Telephone: </label>
+								<form:input class="styleinput" path="telephone" type="text" />
 							</div>
 							<div class="row m-auto">
-								<button class="btn btn-primary" type="button"
+								<button class="btn btn-primary" type="submit"
 									id="btnAddCustomer">SUBMIT</button>
 							</div>
-						</form>
+						</form:form>
 					</div>
 				</div>
 			</div>
 		</div>
+
+		<!-- Edit Customer -->
+		<div class="modal fade" id="editCus">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header title_header">
+						<h4 class="modal-title">Customer</h4>
+						<button type="button" class="close" data-dismiss="modal" x
+							id="btnAddClose">&times;</button>
+					</div>
+
+					<!-- Modal body -->
+					<div class="modal-body">
+						<form:form
+							action="${pageContext.request.contextPath}/admin/customer/update"
+							method="POST" modelAttribute="customer">
+							
+							<div class="form-group">
+								<label class="stylelabel">User name: </label>
+								<form:input id="inputUsernameEdit" type="text"
+									placeholder="Username..." path="username" value=""
+									class="styleinput" />
+							</div>
+							<div class="form-group">
+								<label class="stylelabel">Password: </label>
+								<form:input id="inputPasswordEdit" class="styleinput"
+									path="password" value="" type="text" />
+							</div>
+							<div class="form-group">
+								<label class="stylelabel">Email: </label>
+								<form:input id="inputEmailEdit" class="styleinput" path="email"
+									type="text" value="" />
+							</div>
+							<div class="form-group">
+								<label class="stylelabel">Telephone: </label>
+								<form:input id="inputTelephoneEdit" class="styleinput"
+									path="telephone" type="text" value="" />
+							</div>
+
+							<form:input id="idUser" type="hidden" path="id"
+								value="" />
+							
+							<!--
+							<form:input id="inputTokenEdit" type="hidden" path="token"
+								value="" />
+							<form:input id="inputCreateByEdit" type="hidden" path="createdBy" value="" />
+							<form:input id="inputModifiedByEdit" type="hidden" path="modifiedBy" value="" />
+							<form:input id="inputBookingEdit" type="hidden" path="booking" value="" />
+							<form:input id="inputCreatedDateEdit" type="hidden"
+								path="createdDate" value="" />
+							<form:input id="inputModifiedDateEdit" type="hidden"
+								path="modifieddate" value="" />
+							<form:input id="inputCreatedDateEdit" type="hidden" path="createdDate" value="" />
+							<form:input id="inputModifiedDateEdit" type="hidden" path="modifieddate" value="" />
+							<form:input id="inputCreateByEdit" type="hidden" path="createdBy" value="" />
+							<form:input id="inputModifiedByEdit" type="hidden" path="modifiedBy" value="" />
+							<form:input id="inputBookingEdit" type="hidden" path="booking" value="" /> -->
+							<div class="row m-auto">
+								<button class="btn btn-primary" type="submit"
+									id="btnAddCustomer">SAVE CHANGES</button>
+								<button class="btn btn-success" type="submit"
+									id="btnAddCustomer">CANCEL</button>
+							</div>
+						</form:form>
+					</div>
+				</div>
+			</div>
+		</div>
+
 
 		<!-- Bootstrap core JavaScript-->
 		<script src="resources/admin/vendor/jquery/jquery.min.js"></script>
@@ -427,24 +506,58 @@
 		 -->
 
 		<script type="text/javascript">
-			$("#btnAddCustomer").click(function() {
-				addCustomer();
-			});
-			function addCustomer(){
+		<!--
+			$("#btnAddCustomer")
+					.click(
+							function() {
+								if (!(confirm('Are you sure you want to delete this customer?')))
+									return false
+							});
+			function addCustomer() {
 				var formCus = $('#formEdit').serializeArray();
 				var data = {};
 				$.each(formCus, function(index, v) {
 					if (v.name == 'buildingTypes') {
 						buildingTypes.push(v.value);
 					} else {
-						data[""+v.name+""] = v.value;
+						data["" + v.name + ""] = v.value;
 					}
 				});
 				console.log(data);
 			}
-			
-			
+
+			-->
+			function updateCustomer(id){
+				var urlHandle="http://localhost:8080/spa-project/customer/customers/"+id;
+				var data={};
+				$.ajax({
+					url:urlHandle,
+					type:'GET',
+					success:function(data){
+						this.data=data;
+						showEditHandle(this.data);
+						console.log(this.data);
+					},
+					error:function(){
+						console.log("Thất bại");
+					}
+				})
+				
+				function showEditHandle(data){
+					$('#inputUsernameEdit').val(data.username);
+					$('#inputPasswordEdit').val(data.password);
+					$('#inputEmailEdit').val(data.email);
+					$('#inputTelephoneEdit').val(data.telephone);
+					$('#idUser').val(data.id);
+					//$('#inputModifiedDateEdit').val(data.modifieddate);
+					//$('#inputTokenEdit').val(data.token);
+					//$('#inputCreateByEdit').val(data.createdBy);
+					//$('#inputModifiedByEdit').val(data.modifiedBy);
+					//$('#inputBookingEdit').val(data.booking);
+				}
+			}
 		</script>
+
 
 
 

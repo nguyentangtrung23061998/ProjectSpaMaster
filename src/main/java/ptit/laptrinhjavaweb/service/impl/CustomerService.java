@@ -3,6 +3,8 @@ package ptit.laptrinhjavaweb.service.impl;
 import java.sql.Timestamp;
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +14,7 @@ import ptit.laptrinhjavaweb.repository.IStoreKeeperRepository;
 import ptit.laptrinhjavaweb.service.ICustomerService;
 
 @Service
+@Transactional
 public class CustomerService implements ICustomerService {
 
 	@Autowired
@@ -24,7 +27,7 @@ public class CustomerService implements ICustomerService {
 	
 	@Override
 	public List<CustomerEntity> getCustomers() {
-		return customerRepository.getCustomer();
+		return customerRepository.getCustomers();
 	}
 
 	@Override
@@ -38,15 +41,25 @@ public class CustomerService implements ICustomerService {
 	}
 
 	@Override
-	public CustomerEntity getStore(int theId) {
-		// TODO Auto-generated method stub
-		return null;
+	public CustomerEntity getCustomer(int theId) {
+//		return storeKeeperRepository.get;
+		return customerRepository.getCustomer(theId);
 	}
 
 	@Override
-	public void deleteStore(int theId) {
-		// TODO Auto-generated method stub
-		
+	public void deleteCustomer(int theId) {
+		customerRepository.deleteCustomer(theId);
 	}
 
+	@Override
+	public CustomerEntity cus(String uname, String upwd) {
+		return customerRepository.findUser(uname, upwd);
+	}
+
+	@Override
+	public CustomerEntity updateCustomer(CustomerEntity customer) {
+		return customerRepository.updateCustomer(customer);
+	}
+
+	
 }

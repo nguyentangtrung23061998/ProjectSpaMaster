@@ -4,8 +4,10 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -14,6 +16,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
@@ -54,9 +57,11 @@ public class CustomerEntity {
 
 	@ManyToOne
 	@JoinColumn(name = "storekeeperid")
+	@JsonBackReference
 	private StorekeeperEntity storekeeper;
-	
-	@OneToMany
+
+	@OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH,
+				CascadeType.REFRESH }, mappedBy = "customer",fetch=FetchType.EAGER)
 	List<BookingEntity> booking;
 
 //	@ManyToOne(fetch=FetchType.EAGER,cascade= {CascadeType.PERSIST,CascadeType.MERGE,
@@ -64,29 +69,24 @@ public class CustomerEntity {
 //	@JoinColumn(name="storekeeperid", nullable = false)
 //	private StoreKeeperEntity storeKeeper;
 
-	
 	public CustomerEntity() {
-		
+
 	}
-	
-	
-	
+
 	public CustomerEntity(String username, String password, String email, String telephone, String token,
-		Timestamp createdDate, Timestamp modifieddate, String createdBy, String modifiedBy,
-		StorekeeperEntity storekeeper) {
-	this.username = username;
-	this.password = password;
-	this.email = email;
-	this.telephone = telephone;
-	this.token = token;
-	this.createdDate = createdDate;
-	this.modifieddate = modifieddate;
-	this.createdBy = createdBy;
-	this.modifiedBy = modifiedBy;
-	this.storekeeper = storekeeper;
-}
-
-
+			Timestamp createdDate, Timestamp modifieddate, String createdBy, String modifiedBy,
+			StorekeeperEntity storekeeper) {
+		this.username = username;
+		this.password = password;
+		this.email = email;
+		this.telephone = telephone;
+		this.token = token;
+		this.createdDate = createdDate;
+		this.modifieddate = modifieddate;
+		this.createdBy = createdBy;
+		this.modifiedBy = modifiedBy;
+		this.storekeeper = storekeeper;
+	}
 
 	public Integer getId() {
 		return id;
@@ -183,9 +183,9 @@ public class CustomerEntity {
 	public void setBooking(List<BookingEntity> booking) {
 		this.booking = booking;
 	}
-	
+
 	public void addBooking(BookingEntity tempCustomer) {
-		if(booking == null) {
+		if (booking == null) {
 			booking = new ArrayList<>();
 		}
 		booking.add(tempCustomer);

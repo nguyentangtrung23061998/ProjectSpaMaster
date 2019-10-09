@@ -2,14 +2,18 @@ package ptit.laptrinhjavaweb.entity;
 
 import java.sql.Timestamp;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 @Table(name = "booking")
@@ -45,18 +49,23 @@ public class BookingEntity {
 
 	@ManyToOne
 	@JoinColumn(name = "storeid")
+	@JsonBackReference
 	private StoreEntity store;
 
 	@ManyToOne
 	@JoinColumn(name = "serviceid")
+	@JsonBackReference
 	private ServiceEntity service;
 
 	@ManyToOne
 	@JoinColumn(name = "customerid")
+	@JsonBackReference
 	private CustomerEntity customer;
 
-	@ManyToOne
+	@ManyToOne(cascade= {CascadeType.PERSIST,CascadeType.MERGE,
+						CascadeType.DETACH,CascadeType.REFRESH},fetch=FetchType.LAZY)
 	@JoinColumn(name="bookingstatusid")
+	@JsonBackReference
 	private BookingStatusEntity bookingStatus;
 	
 	public Integer getId() {
