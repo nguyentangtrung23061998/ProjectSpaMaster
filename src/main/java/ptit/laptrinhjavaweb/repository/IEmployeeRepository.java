@@ -10,9 +10,10 @@ import ptit.laptrinhjavaweb.entity.EmployeeEntity;
 
 public interface IEmployeeRepository {
 	public List<EmployeeEntity> getEmployees();
-	public void saveStoreKeeper(EmployeeEntity employee);
+	public void saveEmployee(EmployeeEntity employee);
 
 	public EmployeeEntity getEmployee(int theId);
 
 	public void deleteEmployee(int theId);
+	public EmployeeEntity updateEmployee(EmployeeEntity employee);
 }

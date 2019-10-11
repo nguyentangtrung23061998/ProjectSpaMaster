@@ -17,6 +17,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 @Table(name = "service")
 public class ServiceEntity {
@@ -54,11 +56,13 @@ public class ServiceEntity {
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH,
 			CascadeType.REFRESH })
+	@JsonBackReference
 	@JoinTable(name = "employe_service", joinColumns = { @JoinColumn(name = "serviceid") }, inverseJoinColumns = {
 			@JoinColumn(name = "employeeid") })
 	List<EmployeeEntity> employees = new ArrayList<>();
 	
 	@OneToMany(mappedBy="service")
+	@JsonBackReference
 	List<BookingEntity> booking;
 
 	public ServiceEntity() {

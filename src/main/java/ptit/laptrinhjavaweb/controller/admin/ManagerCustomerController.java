@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import ptit.laptrinhjavaweb.entity.CustomerEntity;
-import ptit.laptrinhjavaweb.repository.IAuthRepository;
+import ptit.laptrinhjavaweb.repository.IAuthCustomerRepository;
 import ptit.laptrinhjavaweb.service.ICustomerService;
 import ptit.laptrinhjavaweb.service.impl.CustomerService;
 
@@ -24,7 +24,7 @@ public class ManagerCustomerController {
 	private ICustomerService customerService;
 
 	@Autowired
-	private IAuthRepository authRepository;
+	private IAuthCustomerRepository authRepository;
 
 	@RequestMapping("/customer")
 	public String showCustomer() {

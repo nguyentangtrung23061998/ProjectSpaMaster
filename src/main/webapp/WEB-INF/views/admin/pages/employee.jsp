@@ -14,7 +14,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 <base href="${pageContext.servletContext.contextPath }/">
-<title>Manager Customer</title>
+<title>Manager Employee</title>
 
 <!-- Custom fonts for this template -->
 
@@ -65,14 +65,14 @@
 				href="admin/appointment"> <i class="fas fa-fw fa-table"></i> <span>Appointment</span>
 			</a></li>
 
-			<li class="nav-item active"><a class="nav-link"
-				href="admin/customer"> <i class="fas fa-user-tag"></i><span>Manager
-						Customer</span></a></li>
-
-			<li class="nav-item"><a class="nav-link" href="admin/service">
-					<i class="fas fa-book"></i> <span>Manager Service</span>
+			<li class="nav-item"><a class="nav-link" href="admin/customer">
+					<i class="fas fa-user-tag"></i><span>Manager Customer</span>
 			</a></li>
-			<li class="nav-item"><a class="nav-link"
+			<li class="nav-item "><a class="nav-link" href="admin/service">
+					<i class="fas fa-book"></i><span>Manager Service</span>
+			</a></li>
+
+			<li class="nav-item active"><a class="nav-link"
 				href="admin/employee"> <i class="fas fa-user"></i> <span>Manager
 						Employee</span></a></li>
 
@@ -267,6 +267,7 @@
 							<div
 								class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
 								aria-labelledby="userDropdown">
+								
 								<a class="dropdown-item" href="admin/login"> <i
 									class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
 									Logout
@@ -282,14 +283,14 @@
 				<div class="container-fluid">
 
 					<!-- Page Heading -->
-					<h1 class="h3 mb-2 text-gray-800">Customer</h1>
+					<h1 class="h3 mb-2 text-gray-800">Service</h1>
 
 					<!-- DataTales Example -->
 					<div class="card shadow mb-4">
 						<div class="card-header py-3">
 							<div class="customer-title">
-								<h6>Information customer</h6>
-								<button data-toggle="modal" data-target="#addCus">+</button>
+								<h6>Information service</h6>
+								<button data-toggle="modal" data-target="#addService">+</button>
 							</div>
 							<div class="card-body">
 								<div class="table-responsive">
@@ -298,36 +299,45 @@
 										<thead>
 											<tr>
 												<th>#</th>
-												<th>Username</th>
-												<th>Password</th>
+												<th>Fullname</th>
 												<th>Email</th>
 												<th>Telephone</th>
+												<th>Sex</th>
+												<th>Address</th>
+												<th>Major</th>
+												<th>Image Path</th>
 												<th>Action</th>
 											</tr>
 										</thead>
 
 										<tbody>
-											<c:forEach var="c" varStatus="index" items="${listCus}">
+											<c:forEach var="e" varStatus="index" items="${employees}">
 												<c:url var="updateLink"
-													value="/admin/customer/update/${c.id }">
-													<c:param name="customerId" value="${c.id}" />
+													value="/admin/employee/update/${e.id }">
+													<c:param name="employeeId" value="${e.id}" />
 												</c:url>
-												<c:url var="deleteLink" value="/admin/customer/delete">
-													<c:param name="customerId" value="${c.id}" />
+												<c:url var="deleteLink" value="/admin/employee/delete">
+													<c:param name="employeeId" value="${e.id}" />
 												</c:url>
 
 												<tr>
 													<td>${index.count}</td>
-													<td>${c.username}</td>
-													<td>${c.password}</td>
-													<td>${c.email}</td>
-													<td>${c.telephone}</td>
-													<td><a data-toggle="modal" data-target="#editCus"
-														onclick="updateCustomer(${c.id})">Update</a> <a
+													<td>${e.fullName}</td>
+													<td>${e.email}</td>
+													<td>${e.telephone}</td>
+													<td>${e.sex}</td>
+													<td>${e.address}</td>
+													<td>${e.major}</td>
+													<td class="m-auto" style="text-align: center"><img
+														alt="" src="${e.imagepath}" width="50px" height="50px">
+													</td>
+													<td><a data-toggle="modal" data-target="#editEmployee"
+														onclick="updateEmployee(${e.id})">Update</a> <a
 														href="${deleteLink}">Delete</a></td>
 												</tr>
 											</c:forEach>
 										</tbody>
+
 									</table>
 								</div>
 							</div>
@@ -384,11 +394,11 @@
 			</div>
 		</div>
 
-		<div class="modal fade" id="addCus">
+		<div class="modal fade" id="addService">
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header title_header">
-						<h4 class="modal-title">Customer</h4>
+						<h4 class="modal-title">Service</h4>
 						<button type="button" class="close" data-dismiss="modal" x
 							id="btnAddClose">&times;</button>
 					</div>
@@ -396,24 +406,40 @@
 					<!-- Modal body -->
 					<div class="modal-body">
 						<form:form
-							action="${pageContext.request.contextPath}/admin/customer"
-							method="POST" modelAttribute="customer">
+							action="${pageContext.request.contextPath}/admin/employee"
+							method="POST" modelAttribute="employee">
 							<div class="form-group">
-								<label class="stylelabel">User name: </label>
-								<form:input id="inputUsername" type="text" path="username"
-									class="styleinput" />
-							</div>
-							<div class="form-group">
-								<label class="stylelabel">Password: </label>
-								<form:input class="styleinput" path="password" type="text" />
+								<label class="stylelabel">Fullname: </label>
+								<form:input type="text" path="fullName" class="styleinput" />
 							</div>
 							<div class="form-group">
 								<label class="stylelabel">Email: </label>
 								<form:input class="styleinput" path="email" type="text" />
 							</div>
 							<div class="form-group">
+								<label class="stylelabel">Address: </label>
+								<form:input class="styleinput" path="address" type="text" />
+							</div>
+							<div class="form-group">
+								<label class="stylelabel">Major: </label>
+								<form:input class="styleinput" path="major" type="text" />
+							</div>
+							<div class="form-group">
+								<label class="stylelabel">Sex</label>
+								<form:select path="sex" class="styleinput">
+									<form:option value="1" label="Nam" />
+									<form:option value="0" label="Nữ" />
+								</form:select>
+							</div>
+
+							<div class="form-group">
 								<label class="stylelabel">Telephone: </label>
 								<form:input class="styleinput" path="telephone" type="text" />
+							</div>
+
+							<div class="form-group">
+								<label class="stylelabel">Image path: </label>
+								<form:input class="styleinput" path="imagepath" type="text" />
 							</div>
 							<div class="row m-auto">
 								<button class="btn btn-primary" type="submit"
@@ -426,11 +452,11 @@
 		</div>
 
 		<!-- Edit Customer -->
-		<div class="modal fade" id="editCus">
+		<div class="modal fade" id="editEmployee">
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header title_header">
-						<h4 class="modal-title">Customer</h4>
+						<h4 class="modal-title">Service</h4>
 						<button type="button" class="close" data-dismiss="modal" x
 							id="btnAddClose">&times;</button>
 					</div>
@@ -438,53 +464,45 @@
 					<!-- Modal body -->
 					<div class="modal-body">
 						<form:form
-							action="${pageContext.request.contextPath}/admin/customer/update"
-							method="POST" modelAttribute="customer">
-
-							<div class="form-group">
-								<label class="stylelabel">User name: </label>
-								<form:input id="inputUsernameEdit" type="text"
-									placeholder="Username..." path="username" value=""
-									class="styleinput" />
-							</div>
-							<div class="form-group">
-								<label class="stylelabel">Password: </label>
-								<form:input id="inputPasswordEdit" class="styleinput"
-									path="password" value="" type="text" />
+							action="${pageContext.request.contextPath}/admin/employee/update"
+							method="POST" modelAttribute="employee">
+							<form:input id="inputIdEmployee" type="hidden" path="id" class="styleinput" value="" />
+							<div class="form-group"> 
+								<label class="stylelabel">Fullname: </label>
+								<form:input id="inputFullnameEdit" type="text" path="fullName" class="styleinput" value="" />
 							</div>
 							<div class="form-group">
 								<label class="stylelabel">Email: </label>
-								<form:input id="inputEmailEdit" class="styleinput" path="email"
-									type="text" value="" />
+								<form:input id="inputEmailEdit" class="styleinput" path="email" type="text" value="" />
 							</div>
 							<div class="form-group">
-								<label class="stylelabel">Telephone: </label>
-								<form:input id="inputTelephoneEdit" class="styleinput"
-									path="telephone" type="text" value="" />
+								<label class="stylelabel">Address: </label>
+								<form:input id="inputAddressEdit" class="styleinput" path="address" type="text" value="" />
+							</div>
+							<div class="form-group">
+								<label class="stylelabel">Major: </label>
+								<form:input id="inputMajorEdit" class="styleinput" path="major" type="text" value="" />
+							</div>
+							<div class="form-group">
+								<label class="stylelabel">Sex</label>
+								<form:select id="inputSexEdit" path="sex" class="styleinput" value="">
+									<form:option value="1" label="Nam" />
+									<form:option value="0" label="Nữ" />
+								</form:select>
 							</div>
 
-							<form:input id="idUser" type="hidden" path="id" value="" />
+							<div class="form-group">
+								<label class="stylelabel">Telephone: </label>
+								<form:input id="inputTelephoneEdit" class="styleinput" path="telephone" type="text" value="" />
+							</div>
 
-							<!--
-							<form:input id="inputTokenEdit" type="hidden" path="token"
-								value="" />
-							<form:input id="inputCreateByEdit" type="hidden" path="createdBy" value="" />
-							<form:input id="inputModifiedByEdit" type="hidden" path="modifiedBy" value="" />
-							<form:input id="inputBookingEdit" type="hidden" path="booking" value="" />
-							<form:input id="inputCreatedDateEdit" type="hidden"
-								path="createdDate" value="" />
-							<form:input id="inputModifiedDateEdit" type="hidden"
-								path="modifieddate" value="" />
-							<form:input id="inputCreatedDateEdit" type="hidden" path="createdDate" value="" />
-							<form:input id="inputModifiedDateEdit" type="hidden" path="modifieddate" value="" />
-							<form:input id="inputCreateByEdit" type="hidden" path="createdBy" value="" />
-							<form:input id="inputModifiedByEdit" type="hidden" path="modifiedBy" value="" />
-							<form:input id="inputBookingEdit" type="hidden" path="booking" value="" /> -->
+							<div class="form-group">
+								<label class="stylelabel">Image path: </label>
+								<form:input id="inputImagePathEdit" class="styleinput" path="imagepath" type="text" value="" />
+							</div>
 							<div class="row m-auto">
-								<button class="btn btn-primary" type="submit" id="btnUpdate">SAVE
-									CHANGES</button>
-								<button class="btn btn-success" type="submit"
-									id="btnAddCustomer">CANCEL</button>
+								<button class="btn btn-primary" type="submit"
+									id="btnUpdateEmployee">SUBMIT</button>
 							</div>
 						</form:form>
 					</div>
@@ -502,35 +520,42 @@
 
 		<script type="text/javascript">
 		
-			function updateCustomer(id){
-				var urlHandle="http://localhost:8080/spa-project/customer/customers/"+id;
-				var data={};
+			function updateEmployee(id) {
+				console.log(id);
+				var urlHandle = "http://localhost:8080/spa-project/employee/employees/"
+						+ id;
+				var data = {};
 				$.ajax({
-					url:urlHandle,
-					type:'GET',
-					success:function(data){
-						this.data=data;
+					url : urlHandle,
+					type : 'GET',
+					success : function(data) {
+						this.data = data;
 						showEditHandle(this.data);
 						console.log(this.data);
 					},
-					error:function(){
+					error : function() {
 						console.log("Thất bại");
 					}
 				})
-				
-				function showEditHandle(data){
-					$('#inputUsernameEdit').val(data.username);
-					$('#inputPasswordEdit').val(data.password);
+
+				function showEditHandle(data) {
+					
+					$('#inputIdEmployee').val(data.id);
+					$('#inputFullnameEdit').val(data.fullName);
 					$('#inputEmailEdit').val(data.email);
+					$('#inputAddressEdit').val(data.address);
+					$('#inputMajorEdit').val(data.major);
+					if(data.sex == true){
+						$('#inputSexEdit').val(1);
+					}else{
+						$('#inputSexEdit').val(0);
+					}
 					$('#inputTelephoneEdit').val(data.telephone);
-					$('#idUser').val(data.id);
-					//$('#inputModifiedDateEdit').val(data.modifieddate);
-					//$('#inputTokenEdit').val(data.token);
-					//$('#inputCreateByEdit').val(data.createdBy);
-					//$('#inputModifiedByEdit').val(data.modifiedBy);
-					//$('#inputBookingEdit').val(data.booking);
+					$('#inputImagePathEdit').val(data.imagepath);
+				
 				}
 			}
+			
 		</script>
 
 

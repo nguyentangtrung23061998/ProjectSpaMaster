@@ -1,11 +1,14 @@
 package ptit.laptrinhjavaweb.service.impl;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import ptit.laptrinhjavaweb.entity.CustomerEntity;
 import ptit.laptrinhjavaweb.entity.EmployeeEntity;
+import ptit.laptrinhjavaweb.entity.StoreEntity;
 import ptit.laptrinhjavaweb.repository.IEmployeeRepository;
 import ptit.laptrinhjavaweb.repository.IStoreRepository;
 import ptit.laptrinhjavaweb.service.IEmployeeService;
@@ -26,21 +29,27 @@ public class EmployeeService implements IEmployeeService{
 	}
 
 	@Override
-	public void saveCustomer(EmployeeEntity getEmployee) {
-		// TODO Auto-generated method stub
-		
+	public void saveEmployee(EmployeeEntity getEmployee) {
+		EmployeeEntity employee = getEmployee;
+		employee.setCreatedDate(new Timestamp(System.currentTimeMillis()));
+		StoreEntity store = storeRepository.getStore(3);
+		employee.setStore(store);
+		employeeRepository.saveEmployee(employee);
 	}
 
 	@Override
 	public EmployeeEntity getEmployee(int theId) {
-		// TODO Auto-generated method stub
-		return null;
+		return employeeRepository.getEmployee(theId);
 	}
 
 	@Override
 	public void deleteEmployee(int theId) {
-		// TODO Auto-generated method stub
-		
+		employeeRepository.deleteEmployee(theId);
+	}
+
+	@Override
+	public EmployeeEntity updateEmployee(EmployeeEntity employee) {
+		return employeeRepository.updateEmployee(employee);
 	}
 
 }

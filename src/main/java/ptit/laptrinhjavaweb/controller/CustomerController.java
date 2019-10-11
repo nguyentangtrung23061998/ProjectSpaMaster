@@ -31,7 +31,7 @@ import ptit.laptrinhjavaweb.entity.EmployeeServiceEntity;
 import ptit.laptrinhjavaweb.entity.GalleryEntity;
 import ptit.laptrinhjavaweb.entity.ServiceEntity;
 import ptit.laptrinhjavaweb.entity.StorekeeperEntity;
-import ptit.laptrinhjavaweb.repository.IAuthRepository;
+import ptit.laptrinhjavaweb.repository.IAuthCustomerRepository;
 import ptit.laptrinhjavaweb.repository.IBookingRepository;
 import ptit.laptrinhjavaweb.repository.IEmployeeServiceRepository;
 import ptit.laptrinhjavaweb.repository.IGalleryReposiory;
@@ -68,7 +68,7 @@ public class CustomerController {
 	private IGalleryService galleryService;
 
 	@Autowired
-	private IAuthRepository authService;
+	private IAuthCustomerRepository authService;
 
 	@Autowired
 	private IBookingService bookingService;
@@ -99,11 +99,6 @@ public class CustomerController {
 	public String loginCus(@RequestParam("username") String username, @RequestParam("password") String password,
 			Model model, HttpServletRequest req, HttpServletResponse res) throws ServletException {
 		String msg = "";
-//		boolean isValid = authService.findUser(username, password);
-//		HttpSession session =req.getSession();
-//		if (isValid) {
-//			return "redirect:/customer/make-spa";
-//		}
 		CustomerEntity cus = authService.findUser(username, password);
 		HttpSession session = req.getSession();
 		System.out.println(cus);

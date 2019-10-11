@@ -54,7 +54,6 @@ public class BookingRepository implements IBookingRepository{
 	@Transactional
 	public List<BookingEntity> getBookingClause(CustomerEntity customer) {
 		Session session=sessionFactory.getCurrentSession();
-		//select b.id,b.bookingdate,b.minutes,b.endtime ,b.customerid,c.id 
 		String hql = "from BookingEntity as b "
 				+ "where b.customer=:customer";
 		try {

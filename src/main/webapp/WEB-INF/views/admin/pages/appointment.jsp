@@ -27,7 +27,8 @@
 <link href="resources/admin/css/style.css" rel="stylesheet">
 
 <!-- Custom styles for this page -->
-<link href="resources/admin/vendor/datatables/dataTables.bootstrap4.min.css"
+<link
+	href="resources/admin/vendor/datatables/dataTables.bootstrap4.min.css"
 	rel="stylesheet">
 
 </head>
@@ -61,9 +62,16 @@
 			<li class="nav-item active"><a class="nav-link"
 				href="admin/appointment"> <i class="fas fa-fw fa-table"></i> <span>Appointment</span></a>
 			</li>
-			<li class="nav-item"><a class="nav-link"
-				href="admin/customer"> <i class="fas fa-fw fa-table"></i> <span>Manager Customer</span></a>
-			</li>
+			<li class="nav-item"><a class="nav-link" href="admin/customer">
+					 <i class="fas fa-user-tag"></i><span>Manager Customer</span>
+			</a></li>
+			<li class="nav-item"><a class="nav-link" href="admin/service">
+					<i class="fas fa-book"></i>  <span>Manager Service</span>
+			</a></li>
+			<li class="nav-item"><a class="nav-link" href="admin/customer">
+					 <i class="fas fa-user"></i> <span>Manager Employee</span>
+			</a></li>
+			
 
 			<!-- Divider -->
 			<hr class="sidebar-divider d-none d-md-block">
@@ -250,25 +258,14 @@
 							class="nav-link dropdown-toggle" href="#" id="userDropdown"
 							role="button" data-toggle="dropdown" aria-haspopup="true"
 							aria-expanded="false"> <span
-								class="mr-2 d-none d-lg-inline text-gray-600 small">Valerie
-									Luna</span> <img class="img-profile rounded-circle"
+								class="mr-2 d-none d-lg-inline text-gray-600 small">Trung</span> <img class="img-profile rounded-circle"
 								src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
 						</a> <!-- Dropdown - User Information -->
 							<div
 								class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
 								aria-labelledby="userDropdown">
-								<a class="dropdown-item" href="#"> <i
-									class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> Profile
-								</a> <a class="dropdown-item" href="#"> <i
-									class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-									Settings
-								</a> <a class="dropdown-item" href="#"> <i
-									class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-									Activity Log
-								</a>
-								<div class="dropdown-divider"></div>
-								<a class="dropdown-item" href="#" data-toggle="modal"
-									data-target="#logoutModal"> <i
+								
+								<a class="dropdown-item" href="admin/login"> <i
 									class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
 									Logout
 								</a>
@@ -284,11 +281,12 @@
 
 					<!-- Page Heading -->
 					<h1 class="h3 mb-2 text-gray-800">Appointment</h1>
-					
+
 					<!-- DataTales Example -->
 					<div class="card shadow mb-4">
 						<div class="card-header py-3">
-							<h6 class="m-0 font-weight-bold text-primary">Information Booking</h6>
+							<h6 class="m-0 font-weight-bold text-primary">Information
+								Booking</h6>
 						</div>
 						<div class="card-body">
 							<div class="table-responsive">
@@ -303,22 +301,22 @@
 											<th>Start Time</th>
 											<th>End Time</th>
 											<th>Minutes</th>
-											
+
 										</tr>
 									</thead>
 
 									<tbody>
-									<c:forEach var="b"  varStatus="index" items="${booking}">
-										<tr>
-											<td>${index.count}</td>
-											<td>${b.bookingDate}</td>
-											<td>${b.customer.username}</td>
-											<td>${b.service.nameService}</td>
-											<td>${b.startTime}</td>
-											<td>${b.endTime}</td>
-											<td>${b.minutes}</td>
-										</tr>
-									</c:forEach>						
+										<c:forEach var="b" varStatus="index" items="${booking}">
+											<tr>
+												<td>${index.count}</td>
+												<td>${b.bookingDate}</td>
+												<td>${b.customer.username}</td>
+												<td>${b.service.nameService}</td>
+												<td>${b.startTime}</td>
+												<td>${b.endTime}</td>
+												<td>${b.minutes}</td>
+											</tr>
+										</c:forEach>
 									</tbody>
 								</table>
 							</div>

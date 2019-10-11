@@ -11,6 +11,7 @@ import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import ptit.laptrinhjavaweb.entity.CustomerEntity;
 import ptit.laptrinhjavaweb.entity.ServiceEntity;
 import ptit.laptrinhjavaweb.repository.IServiceRepository;
 
@@ -47,6 +48,49 @@ public class ServiceRepository implements IServiceRepository {
 			
 		} catch (Exception e) {
 			session=sessionFactory.openSession();
+		}
+		return new ServiceEntity();
+	}
+
+	@Override
+	@Transactional
+	public ServiceEntity saveService(ServiceEntity service) {
+		Session session = sessionFactory.getCurrentSession();
+		try {
+			session.saveOrUpdate(service);
+			return service;
+		} catch (Exception e) {
+			e.printStackTrace();
+			session= sessionFactory.openSession();
+		}
+		return new ServiceEntity();
+	}
+
+	@Override
+	@Transactional
+	public void deleteService(int theId) {
+		session=sessionFactory.getCurrentSession();
+		try {
+			ServiceEntity service = session.get(ServiceEntity.class, theId);
+			if(service != null) {
+				session.delete(service);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+
+	@Override
+	@Transactional
+	public ServiceEntity updateService(ServiceEntity service) {
+		session = sessionFactory.getCurrentSession();
+		try {
+			session.update(service);
+			return service;
+		} catch (Exception e) {
+			// TODO: handle exception
+			session= sessionFactory.openSession();
 		}
 		return new ServiceEntity();
 	}

@@ -85,13 +85,13 @@
 						<div class="col-lg-4 pull-lg-8 text-xs-center">
 							<img
 								src="https://scontent.fsgn5-7.fna.fbcdn.net/v/t1.0-9/71228470_1347912108701571_4479324772861214720_n.jpg?_nc_cat=103&_nc_oc=AQkwk98f8awJigwvkA-3ftGMVF3jeW3ZiZg0IROJ_S9e2NbPmf_ckq-EsNTaS8hXl4c&_nc_ht=scontent.fsgn5-7.fna&oh=ff09c93078f428e78af4088805e03c11&oe=5E3D3C3D"
-								class="m-x-auto img-fluid img-circle" alt="avatar" width="150px"
-								height="150px" />
-							<h6 class="m-t-2">Upload a different photo</h6>
+								class="m-x-auto img-fluid " alt="avatar" width="300px"
+								height="300px" />
+							<!-- <h6 class="m-t-2">Upload a different photo</h6>
 							<label class="custom-file"> <input type="file" id="file"
 								class="custom-file-input"> <span
 								class="custom-file-control">Choose file</span>
-							</label>
+							</label> -->
 						</div>
 
 						<div class="col-lg-8 push-lg-4 personal-info">

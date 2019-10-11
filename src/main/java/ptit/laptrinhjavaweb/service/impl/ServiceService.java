@@ -25,6 +25,22 @@ public class ServiceService implements IServiceService{
 	public ServiceEntity getService(int id) {
 		return serviceRepository.getService(id);
 	}
+
+	@Override
+	public ServiceEntity saveService(ServiceEntity service) {
+		return serviceRepository.saveService(service);
+	}
+
+	@Override
+	public void deleteService(int theId) {
+		serviceRepository.deleteService(theId);
+	}
+
+	@Override
+	public ServiceEntity updateService(ServiceEntity service) {
+		// TODO Auto-generated method stub
+		return serviceRepository.updateService(service);
+	}
 	
 	
 }

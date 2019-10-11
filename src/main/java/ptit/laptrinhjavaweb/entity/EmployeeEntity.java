@@ -36,7 +36,7 @@ public class EmployeeEntity {
 	private String telephone;
 
 	@Column(name = "sex")
-	private String sex;
+	private boolean sex;
 
 	@Column(name = "address")
 	private String address;
@@ -110,11 +110,11 @@ public class EmployeeEntity {
 		this.telephone = telephone;
 	}
 
-	public String getSex() {
+	public boolean isSex() {
 		return sex;
 	}
 
-	public void setSex(String sex) {
+	public void setSex(boolean sex) {
 		this.sex = sex;
 	}
 

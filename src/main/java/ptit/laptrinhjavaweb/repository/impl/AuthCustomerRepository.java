@@ -12,12 +12,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import ptit.laptrinhjavaweb.entity.CustomerEntity;
-import ptit.laptrinhjavaweb.repository.IAuthRepository;
+import ptit.laptrinhjavaweb.repository.IAuthCustomerRepository;
 
 @Repository
-public class AuthRepository implements IAuthRepository{
+public class AuthCustomerRepository implements IAuthCustomerRepository{
 	
-	private static Logger log = Logger.getLogger(AuthRepository.class);
+	private static Logger log = Logger.getLogger(AuthCustomerRepository.class);
 	
 	@Autowired
 	SessionFactory sessionFactory;

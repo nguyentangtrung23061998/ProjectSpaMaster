@@ -28,9 +28,6 @@ public class EmployeeRepository implements IEmployeeRepository{
 		try {
 			session = sessionFactory.getCurrentSession();
 			Query<EmployeeEntity> theQuery = session.createQuery("from EmployeeEntity", EmployeeEntity.class);
-//			String hql = "from EmployeeEntity s where s.fullName=:fullName";
-//			Query theQuery = session.createQuery(hql);
-			theQuery.setParameter("fullName", "LISA MARIO");
 			List<EmployeeEntity> customers = theQuery.getResultList();
 			return customers;
 		} catch (Exception e) {
@@ -41,21 +38,62 @@ public class EmployeeRepository implements IEmployeeRepository{
 	}
 
 	@Override
-	public void saveStoreKeeper(EmployeeEntity employee) {
-		// TODO Auto-generated method stub
+	@Transactional
+	public void saveEmployee(EmployeeEntity employee) {
+		try {
+			session = sessionFactory.getCurrentSession();
+			session.saveOrUpdate(employee);
+
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			session = sessionFactory.openSession();
+		}
 		
 	}
 
 	@Override
+	@Transactional
 	public EmployeeEntity getEmployee(int theId) {
-		// TODO Auto-generated method stub
-		return null;
+		try {
+			session = sessionFactory.getCurrentSession();
+			EmployeeEntity employee = session.get(EmployeeEntity.class, theId);
+			System.out.println(employee);
+			return employee;
+		} catch (Exception e) {
+			e.printStackTrace();
+			session = sessionFactory.openSession();
+		}
+		return new EmployeeEntity();
 	}
 
 	@Override
+	@Transactional
 	public void deleteEmployee(int theId) {
-		// TODO Auto-generated method stub
-		
+		session=sessionFactory.getCurrentSession();
+		try {
+			EmployeeEntity employee = session.get(EmployeeEntity.class, theId);
+			if(employee != null) {
+				session.delete(employee);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	@Transactional
+	public EmployeeEntity updateEmployee(EmployeeEntity employee) {
+		session = sessionFactory.getCurrentSession();
+		try {
+			session.update(employee);
+			return employee;
+		} catch (Exception e) {
+			// TODO: handle exception
+			session= sessionFactory.openSession();
+		}
+		return new EmployeeEntity();
+	
 	}
 
 }

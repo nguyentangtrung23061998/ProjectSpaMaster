@@ -65,17 +65,17 @@
 				href="admin/appointment"> <i class="fas fa-fw fa-table"></i> <span>Appointment</span>
 			</a></li>
 
-			<li class="nav-item active"><a class="nav-link"
-				href="admin/customer"> <i class="fas fa-user-tag"></i><span>Manager
+			<li class="nav-item"><a class="nav-link"
+				href="admin/customer">  <i class="fas fa-user-tag"></i> <span>Manager
 						Customer</span></a></li>
 
-			<li class="nav-item"><a class="nav-link" href="admin/service">
-					<i class="fas fa-book"></i> <span>Manager Service</span>
-			</a></li>
+			<li class="nav-item active"><a class="nav-link"
+				href="admin/service"> <i class="fas fa-book"></i> <span>Manager
+						Service</span></a></li>
 			<li class="nav-item"><a class="nav-link"
-				href="admin/employee"> <i class="fas fa-user"></i> <span>Manager
+				href="admin/employee">  <i class="fas fa-user"></i> <span>Manager
 						Employee</span></a></li>
-
+			
 			<!-- Divider -->
 			<hr class="sidebar-divider d-none d-md-block">
 
@@ -282,14 +282,14 @@
 				<div class="container-fluid">
 
 					<!-- Page Heading -->
-					<h1 class="h3 mb-2 text-gray-800">Customer</h1>
+					<h1 class="h3 mb-2 text-gray-800">Service</h1>
 
 					<!-- DataTales Example -->
 					<div class="card shadow mb-4">
 						<div class="card-header py-3">
 							<div class="customer-title">
-								<h6>Information customer</h6>
-								<button data-toggle="modal" data-target="#addCus">+</button>
+								<h6>Information service</h6>
+								<button data-toggle="modal" data-target="#addService">+</button>
 							</div>
 							<div class="card-body">
 								<div class="table-responsive">
@@ -298,36 +298,40 @@
 										<thead>
 											<tr>
 												<th>#</th>
-												<th>Username</th>
-												<th>Password</th>
-												<th>Email</th>
-												<th>Telephone</th>
+												<th>Name</th>
+												<th>Minutes</th>
+												<th>Prices</th>
+												<th>Description</th>
+												<th>Image Path</th>
 												<th>Action</th>
 											</tr>
 										</thead>
-
+										
 										<tbody>
-											<c:forEach var="c" varStatus="index" items="${listCus}">
+											<c:forEach var="s" varStatus="index" items="${services}">
 												<c:url var="updateLink"
-													value="/admin/customer/update/${c.id }">
-													<c:param name="customerId" value="${c.id}" />
+													value="/admin/service/update/${s.id }">
+													<c:param name="serviceId" value="${s.id}" />
 												</c:url>
-												<c:url var="deleteLink" value="/admin/customer/delete">
-													<c:param name="customerId" value="${c.id}" />
+												<c:url var="deleteLink" value="/admin/service/delete">
+													<c:param name="serviceId" value="${s.id}" />
 												</c:url>
 
 												<tr>
 													<td>${index.count}</td>
-													<td>${c.username}</td>
-													<td>${c.password}</td>
-													<td>${c.email}</td>
-													<td>${c.telephone}</td>
-													<td><a data-toggle="modal" data-target="#editCus"
-														onclick="updateCustomer(${c.id})">Update</a> <a
+													<td>${s.nameService}</td>
+													<td>${s.minutes}</td>
+													<td>${s.price}</td>
+													<td>${s.description}</td>
+													<td>${s.imagePath}</td>
+													<td><a data-toggle="modal" data-target="#editService"
+														onclick="updateService(${s.id})" >Update</a>
+														 <a
 														href="${deleteLink}">Delete</a></td>
 												</tr>
 											</c:forEach>
 										</tbody>
+										
 									</table>
 								</div>
 							</div>
@@ -384,11 +388,11 @@
 			</div>
 		</div>
 
-		<div class="modal fade" id="addCus">
+		<div class="modal fade" id="addService">
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header title_header">
-						<h4 class="modal-title">Customer</h4>
+						<h4 class="modal-title">Service</h4>
 						<button type="button" class="close" data-dismiss="modal" x
 							id="btnAddClose">&times;</button>
 					</div>
@@ -396,24 +400,28 @@
 					<!-- Modal body -->
 					<div class="modal-body">
 						<form:form
-							action="${pageContext.request.contextPath}/admin/customer"
-							method="POST" modelAttribute="customer">
+							action="${pageContext.request.contextPath}/admin/service"
+							method="POST" modelAttribute="service">
 							<div class="form-group">
-								<label class="stylelabel">User name: </label>
-								<form:input id="inputUsername" type="text" path="username"
+								<label class="stylelabel">Name: </label>
+								<form:input id="inputName" type="text" path="nameService"
 									class="styleinput" />
 							</div>
 							<div class="form-group">
-								<label class="stylelabel">Password: </label>
-								<form:input class="styleinput" path="password" type="text" />
+								<label class="stylelabel">Minutes: </label>
+								<form:input class="styleinput" path="minutes" type="text" />
 							</div>
 							<div class="form-group">
-								<label class="stylelabel">Email: </label>
-								<form:input class="styleinput" path="email" type="text" />
+								<label class="stylelabel">Prices: </label>
+								<form:input class="styleinput" path="price" type="text" />
 							</div>
 							<div class="form-group">
-								<label class="stylelabel">Telephone: </label>
-								<form:input class="styleinput" path="telephone" type="text" />
+								<label class="stylelabel">Description: </label>
+								<form:input class="styleinput" path="description" type="text" />
+							</div>
+							<div class="form-group">
+								<label class="stylelabel">Image path: </label>
+								<form:input class="styleinput" path="imagePath" type="text" />
 							</div>
 							<div class="row m-auto">
 								<button class="btn btn-primary" type="submit"
@@ -426,11 +434,11 @@
 		</div>
 
 		<!-- Edit Customer -->
-		<div class="modal fade" id="editCus">
+		<div class="modal fade" id="editService">
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header title_header">
-						<h4 class="modal-title">Customer</h4>
+						<h4 class="modal-title">Service</h4>
 						<button type="button" class="close" data-dismiss="modal" x
 							id="btnAddClose">&times;</button>
 					</div>
@@ -438,53 +446,34 @@
 					<!-- Modal body -->
 					<div class="modal-body">
 						<form:form
-							action="${pageContext.request.contextPath}/admin/customer/update"
-							method="POST" modelAttribute="customer">
-
+							action="${pageContext.request.contextPath}/admin/service/update"
+							method="POST" modelAttribute="service">
+							<form:input id="inputIdService" type="hidden" path="id"
+									class="styleinput" value=""/>
 							<div class="form-group">
-								<label class="stylelabel">User name: </label>
-								<form:input id="inputUsernameEdit" type="text"
-									placeholder="Username..." path="username" value=""
-									class="styleinput" />
+								<label class="stylelabel">Name: </label>
+								<form:input id="inputNameService" type="text" path="nameService"
+									class="styleinput" value=""/>
 							</div>
 							<div class="form-group">
-								<label class="stylelabel">Password: </label>
-								<form:input id="inputPasswordEdit" class="styleinput"
-									path="password" value="" type="text" />
+								<label class="stylelabel">Minutes: </label>
+								<form:input id="inputMinutes" class="styleinput" path="minutes" type="text" value="" />
 							</div>
 							<div class="form-group">
-								<label class="stylelabel">Email: </label>
-								<form:input id="inputEmailEdit" class="styleinput" path="email"
-									type="text" value="" />
+								<label class="stylelabel">Prices: </label>
+								<form:input id="inputPrice" class="styleinput" path="price" type="text" value="" />
 							</div>
 							<div class="form-group">
-								<label class="stylelabel">Telephone: </label>
-								<form:input id="inputTelephoneEdit" class="styleinput"
-									path="telephone" type="text" value="" />
+								<label class="stylelabel">Description: </label>
+								<form:input id="inputDescription" class="styleinput" path="description" type="text" value="" />
 							</div>
-
-							<form:input id="idUser" type="hidden" path="id" value="" />
-
-							<!--
-							<form:input id="inputTokenEdit" type="hidden" path="token"
-								value="" />
-							<form:input id="inputCreateByEdit" type="hidden" path="createdBy" value="" />
-							<form:input id="inputModifiedByEdit" type="hidden" path="modifiedBy" value="" />
-							<form:input id="inputBookingEdit" type="hidden" path="booking" value="" />
-							<form:input id="inputCreatedDateEdit" type="hidden"
-								path="createdDate" value="" />
-							<form:input id="inputModifiedDateEdit" type="hidden"
-								path="modifieddate" value="" />
-							<form:input id="inputCreatedDateEdit" type="hidden" path="createdDate" value="" />
-							<form:input id="inputModifiedDateEdit" type="hidden" path="modifieddate" value="" />
-							<form:input id="inputCreateByEdit" type="hidden" path="createdBy" value="" />
-							<form:input id="inputModifiedByEdit" type="hidden" path="modifiedBy" value="" />
-							<form:input id="inputBookingEdit" type="hidden" path="booking" value="" /> -->
+							<div class="form-group">
+								<label class="stylelabel">Image path: </label>
+								<form:input id="inputImagePath" class="styleinput" path="imagePath" type="text" value="" />
+							</div>
 							<div class="row m-auto">
-								<button class="btn btn-primary" type="submit" id="btnUpdate">SAVE
-									CHANGES</button>
-								<button class="btn btn-success" type="submit"
-									id="btnAddCustomer">CANCEL</button>
+								<button class="btn btn-primary" type="submit"
+									id="btnAddCustomer">SUBMIT</button>
 							</div>
 						</form:form>
 					</div>
@@ -502,35 +491,38 @@
 
 		<script type="text/javascript">
 		
-			function updateCustomer(id){
-				var urlHandle="http://localhost:8080/spa-project/customer/customers/"+id;
-				var data={};
+			function updateService(id) {
+				console.log(id);
+				var urlHandle = "http://localhost:8080/spa-project/service/services/"
+						+ id;
+				var data = {};
 				$.ajax({
-					url:urlHandle,
-					type:'GET',
-					success:function(data){
-						this.data=data;
+					url : urlHandle,
+					type : 'GET',
+					success : function(data) {
+						this.data = data;
 						showEditHandle(this.data);
 						console.log(this.data);
 					},
-					error:function(){
+					error : function() {
 						console.log("Thất bại");
 					}
 				})
-				
-				function showEditHandle(data){
-					$('#inputUsernameEdit').val(data.username);
-					$('#inputPasswordEdit').val(data.password);
-					$('#inputEmailEdit').val(data.email);
-					$('#inputTelephoneEdit').val(data.telephone);
-					$('#idUser').val(data.id);
-					//$('#inputModifiedDateEdit').val(data.modifieddate);
+
+				function showEditHandle(data) {
+					$('#inputNameService').val(data.nameService);
+					$('#inputMinutes').val(data.minutes);
+					$('#inputPrice').val(data.price);
+					$('#inputDescription').val(data.description);
+					$('#inputImagePath').val(data.imagePath);
+					$('#inputIdService').val(data.id);
 					//$('#inputTokenEdit').val(data.token);
 					//$('#inputCreateByEdit').val(data.createdBy);
 					//$('#inputModifiedByEdit').val(data.modifiedBy);
 					//$('#inputBookingEdit').val(data.booking);
 				}
 			}
+			
 		</script>
 
 
