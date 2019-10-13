@@ -79,17 +79,6 @@ public class CustomerController {
 	@Autowired
 	private IBookingStatusService bookingStatusService;
 	
-//	
-//	@GetMapping("/test")
-//	public List<CustomerEntity> getCustomer(){
-//		List<CustomerEntity> customers =  customerService.getCustomers();
-//		List<StorekeeperEntity> storekeeper = new ArrayList<>();
-//		for(CustomerEntity customer: customers) {
-//			storekeeper.add(customer.getStorekeeper());
-//		}
-//		return customers;
-//	}
-
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String loginCustomer() {
 		return "customer/login/login";
@@ -107,12 +96,14 @@ public class CustomerController {
 				session.setAttribute("customer",cus);
 				
 				return "redirect:/customer/make-spa";
+			}else {
+				return "redirect:/customer/login";
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
-		return "redirect:/customer/make-spa";
+		return "redirect:/customer/home";
 	}
 
 	@RequestMapping(value = "/sign-up", method = RequestMethod.GET)

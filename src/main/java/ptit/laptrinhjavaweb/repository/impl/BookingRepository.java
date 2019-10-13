@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -67,5 +68,21 @@ public class BookingRepository implements IBookingRepository{
 		}
 		return new ArrayList<>();
 	}
+
+	@Override
+	@Transactional
+	public BookingEntity getBooking(Integer id) {
+		Session session=sessionFactory.getCurrentSession();
+		try {
+			BookingEntity booking = session.get(BookingEntity.class, id);
+			System.out.println(booking);
+			return booking;
+		} catch (HibernateException e) {
+			e.printStackTrace();
+			session = sessionFactory.openSession();
+		}
+		return new BookingEntity();
+	}
+
 
 }

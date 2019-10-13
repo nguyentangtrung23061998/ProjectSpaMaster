@@ -6,4 +6,5 @@ import ptit.laptrinhjavaweb.entity.BookingStatusEntity;
 
 public interface IBookingStatusService {
 	public BookingStatusEntity getBookingStatusDefault();
+	public BookingStatusEntity getBookingStatusParam(Integer id);
 }

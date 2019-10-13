@@ -15,6 +15,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.annotations.NotFound;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -28,9 +31,11 @@ public class CustomerEntity {
 	@Column(name = "id")
 	private Integer id;
 
+	@NotNull
 	@Column(name = "username")
 	private String username;
 
+	@NotNull
 	@Column(name = "password")
 	private String password;
 

@@ -57,7 +57,8 @@
 										data-letters="History">History</span></a></li>
 								<li><a href="profile" class="link-kumya"><span
 										data-letters="Profile">Profile</span></a></li>
-								<li><a href="${pageContext.request.contextPath }"
+								<li><a
+									href="${pageContext.request.contextPath }/customer/login"
 									class="link-kumya"><span data-letters="Sign Out">Sign
 											Out</span></a></li>
 							</ul>
@@ -88,36 +89,36 @@
 								<th>Booking date</th>
 								<th>Minutes</th>
 								<th>Start time</th>
-								<th>End time</th>
 								<th>Booking Status</th>
 								<th>Action</th>
 							</tr>
 						</thead>
 						<tbody>
 							<c:forEach var="book" varStatus="index" items="${booking}">
+								<c:url var="updateBooking" value="/customer/history/update">
+									<c:param name="bookingId" value="${book.id}" />
+								</c:url>
 								<tr class="table-primary">
 									<th scope="row">${index.count}</th>
 									<td>${book.bookingDate }</td>
 									<td>${book.minutes }</td>
 									<td>${book.startTime }</td>
-									<td>${book.endTime }</td>
-									<td>
-										<c:if test="${book.bookingStatus.id == 1}" >
+									<td><c:if test="${book.bookingStatus.id == 1}">
 											Booking
-										</c:if>
-										<c:if test="${book.bookingStatus.id == 2}" >
+										</c:if> <c:if test="${book.bookingStatus.id == 2}">
 											Cancelled
-										</c:if>
-										<c:if test="${book.bookingStatus.id == 3}" >
+										</c:if> <c:if test="${book.bookingStatus.id == 3}">
 											Successful
-										</c:if>
-										<c:if test="${book.bookingStatus.id == 4}" >
+										</c:if> <c:if test="${book.bookingStatus.id == 4}">
 											No Show
-										</c:if>
-									</td>
-									<td>
-										<button class="btn btn-primary">No Show</button>
-									</td>
+										</c:if></td>
+									<td><c:if test="${book.bookingStatus.id == 1}">
+											<a class="btn btn-primary" href="${updateBooking}">No
+												Show</a>
+										</c:if> <c:if test="${book.bookingStatus.id != 1}">
+											<a class="btn btn-fix" style="cursor: not-allowed"
+												href="${updateBooking}">No Show</a>
+										</c:if></td>
 								</tr>
 							</c:forEach>
 						</tbody>

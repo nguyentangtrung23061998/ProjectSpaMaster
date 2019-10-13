@@ -57,8 +57,9 @@
 										data-letters="History">History</span></a></li>
 								<li><a href="profile" class="link-kumya"><span
 										data-letters="Profile">Profile</span></a></li>
-								<li><a href="${pageContext.request.contextPath }" class="link-kumya"><span
-										data-letters="Sign Out">Sign Out</span></a></li>
+								<li><a href="${pageContext.request.contextPath }/customer/home"
+									class="link-kumya"><span data-letters="Sign Out">Sign
+											Out</span></a></li>
 							</ul>
 							<div class="clearfix"></div>
 						</div>
@@ -84,45 +85,55 @@
 						<h3 class="tittle-main-agile">Make An Appointment Now</h3>
 					</div>
 					<div class="make-form">
-					
-						<form action="${pageContext.request.contextPath}/customer/make-spa" method="POST"  >
+
+						<form
+							action="${pageContext.request.contextPath}/customer/make-spa"
+							method="POST">
 							<div class="form-title">
 								<h5>Service And Date</h5>
 							</div>
 							<div class="form-conent-service">
-								<input type="date" placeholder="mm/dd/yyyy" name="bookingDate"/>
-								<select id=""  class="form-control name" name="service">
+								<input type="date" placeholder="mm/dd/yyyy" name="bookingDate" />
+								<select id="" class="form-control name" name="service">
 									<option value="">Please Select Your Service</option>
 									<c:forEach var="s" items="${service}">
-										<option value="${s.id}">${s.nameService}-
-											${s.price}$</option>
+										<option value="${s.id}">${s.nameService}-${s.price}$</option>
 									</c:forEach>
-									
-								</select> 
+
+								</select>
 							</div>
 							<div class="form-title">
 								<h5>Check In</h5>
-                            </div>
-                            
+							</div>
+
 							<div class="form-conent-service checkIn">
-                                <select id="" class="name" name="hour">
-                                    <option value="0">00</option>
-                                </select> 
-                                <span class="text-success lead "> : </span>
-                                <select id="" class="name" name="minutes">
+								<select id="" class="name" name="hour">
+									<option value="8">08</option>
+									<option value="9">09</option>
+									<option value="10">10</option>
+									<option value="11">11</option>
+									<option value="13">13</option>
+									<option value="14">14</option>
+									<option value="15">15</option>
+									<option value="16">16</option>
+									<option value="17">17</option>
+								</select> <span class="text-success lead "> : </span> <select id=""
+									class="name" name="minutes">
 									<option value="0">00</option>
-								</select> 
+									<option value="0">30</option>
+								</select>
 							</div>
 							<div class="form-title">
 								<h5>My Information</h5>
 							</div>
 							<div class="form-conent-service">
-								<input type="text" placeholder="Username" value="${customer.username}" readonly/> 
-								<input type="email" placeholder="Email" value="${customer.email }" readonly/> 
+								<input type="text" placeholder="Username"
+									value="${customer.username}" readonly /> <input type="email"
+									placeholder="Email" value="${customer.email }" readonly />
 							</div>
-								
+
 							<input type="submit" value="Submit">
-						</form> 
+						</form>
 					</div>
 				</div>
 				<div class="col-md-8 text-right">

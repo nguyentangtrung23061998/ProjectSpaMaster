@@ -20,4 +20,9 @@ public class BookingStatusService implements IBookingStatusService {
 		return bookingStatusRepository.getBookingStatusDefault();
 	}
 
+	@Override
+	public BookingStatusEntity getBookingStatusParam(Integer id) {
+		return bookingStatusRepository.getBookingStatusParam(id);
+	}
+
 }

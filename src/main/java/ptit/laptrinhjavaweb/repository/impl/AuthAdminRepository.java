@@ -32,12 +32,11 @@ public class AuthAdminRepository implements IAuthAdminRepository{
 			query.setParameter("username",username);
 			query.setParameter("password", password);
 			StorekeeperEntity storeKeeper = (StorekeeperEntity) query.uniqueResult();
-			session.clear();
 			return storeKeeper;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return null;
+		return new StorekeeperEntity();
 	}
 	
 	

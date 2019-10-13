@@ -9,4 +9,5 @@ public interface IBookingService {
 	public List<BookingEntity> getBooking();
 	public BookingEntity saveBooing(BookingEntity booking);
 	public List<BookingEntity> getListBookingClause(CustomerEntity customer);
+	public BookingEntity getBooking(Integer theId);
 }

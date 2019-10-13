@@ -4,8 +4,10 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -36,7 +38,7 @@ public class BookingStatusEntity {
 
 	@OneToMany
 	List<BookingEntity> booking;
-	
+
 	public Integer getId() {
 		return id;
 	}
@@ -85,7 +87,6 @@ public class BookingStatusEntity {
 		this.modifiedBy = modifiedBy;
 	}
 
-	
 	public List<BookingEntity> getBooking() {
 		return booking;
 	}
@@ -108,7 +109,7 @@ public class BookingStatusEntity {
 	}
 
 	public void addBooking(BookingEntity tempCustomer) {
-		if(booking == null) {
+		if (booking == null) {
 			booking = new ArrayList<>();
 		}
 		booking.add(tempCustomer);

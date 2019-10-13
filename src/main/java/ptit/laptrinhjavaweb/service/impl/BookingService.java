@@ -37,5 +37,11 @@ public class BookingService implements IBookingService{
 	public List<BookingEntity> getListBookingClause(CustomerEntity customer) {
 		return bookingRepository.getBookingClause(customer);
 	}
+
+	@Override
+	public BookingEntity getBooking(Integer theId) {
+		// TODO Auto-generated method stub
+		return bookingRepository.getBooking(theId);
+	}
 	
 }

@@ -39,6 +39,31 @@ public class BookingStatusRepository implements IBookingStatusRepository{
 		}
 		return new BookingStatusEntity();
 	}
+
+	@Override
+	@Transactional
+	public BookingStatusEntity getBookingStatusParam(Integer id) {
+		Session session = sessionFactory.getCurrentSession();
+		try {
+			String hql = "from BookingStatusEntity as b where b.id=:idBooked";
+			Query query = session.createQuery(hql);
+			if(id==idBooked) {
+				query.setParameter("idBooked", idBooked);
+			}else if(id==idCancelled) {
+				query.setParameter("idBooked", idCancelled);
+			}else if(id==idSuccessful) {
+				query.setParameter("idBooked", idSuccessful);
+			}else if(id==idNoShow) {
+				query.setParameter("idBooked", idNoShow);
+			}
+			
+			BookingStatusEntity bookingStatus = (BookingStatusEntity) query.uniqueResult();
+			return bookingStatus;
+		} catch (Exception e) {
+			session= sessionFactory.openSession();
+		}
+		return new BookingStatusEntity();
+	}
 	
 	
 

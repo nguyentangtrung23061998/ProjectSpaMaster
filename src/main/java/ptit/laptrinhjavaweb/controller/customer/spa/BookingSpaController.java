@@ -68,7 +68,7 @@ public class BookingSpaController {
 		//xử lí booking
 		BookingEntity bookingEntity = new BookingEntity();
 		Integer totalMinutes = hour * 60 + minutes;
-		String handleTime = hour + "-" + minutes;
+		String handleTime = hour + "h" + minutes;
 		bookingEntity.setBookingDate(date);
 		
 		bookingEntity.setMinutes(totalMinutes);
@@ -84,7 +84,7 @@ public class BookingSpaController {
 		StoreEntity store = storeService.getStore(3);
 		bookingEntity.setStore(store);
 		
-		bookingEntity.setEndTime("13");
+		//bookingEntity.setEndTime("13");
 		bookingService.saveBooing(bookingEntity);
 		return "redirect:/customer/make-spa";
 	}

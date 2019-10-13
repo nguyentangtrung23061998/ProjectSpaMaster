@@ -31,6 +31,13 @@
 	href="resources/admin/vendor/datatables/dataTables.bootstrap4.min.css"
 	rel="stylesheet">
 
+<style>
+.btn-fix {
+	background: #5cb85c;
+	color: #fff !important; 
+}
+</style>
+
 </head>
 
 <body id="page-top">
@@ -63,15 +70,15 @@
 				href="admin/appointment"> <i class="fas fa-fw fa-table"></i> <span>Appointment</span></a>
 			</li>
 			<li class="nav-item"><a class="nav-link" href="admin/customer">
-					 <i class="fas fa-user-tag"></i><span>Manager Customer</span>
+					<i class="fas fa-user-tag"></i><span>Manager Customer</span>
 			</a></li>
 			<li class="nav-item"><a class="nav-link" href="admin/service">
-					<i class="fas fa-book"></i>  <span>Manager Service</span>
+					<i class="fas fa-book"></i> <span>Manager Service</span>
 			</a></li>
 			<li class="nav-item"><a class="nav-link" href="admin/customer">
-					 <i class="fas fa-user"></i> <span>Manager Employee</span>
+					<i class="fas fa-user"></i> <span>Manager Employee</span>
 			</a></li>
-			
+
 
 			<!-- Divider -->
 			<hr class="sidebar-divider d-none d-md-block">
@@ -258,13 +265,14 @@
 							class="nav-link dropdown-toggle" href="#" id="userDropdown"
 							role="button" data-toggle="dropdown" aria-haspopup="true"
 							aria-expanded="false"> <span
-								class="mr-2 d-none d-lg-inline text-gray-600 small">Trung</span> <img class="img-profile rounded-circle"
+								class="mr-2 d-none d-lg-inline text-gray-600 small">Trung</span>
+								<img class="img-profile rounded-circle"
 								src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
 						</a> <!-- Dropdown - User Information -->
 							<div
 								class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
 								aria-labelledby="userDropdown">
-								
+
 								<a class="dropdown-item" href="admin/login"> <i
 									class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
 									Logout
@@ -299,22 +307,57 @@
 											<th>Customer</th>
 											<th>Sevice</th>
 											<th>Start Time</th>
-											<th>End Time</th>
 											<th>Minutes</th>
-
+											<th>Status</th>
+											<th>Action</th>
 										</tr>
 									</thead>
 
 									<tbody>
 										<c:forEach var="b" varStatus="index" items="${booking}">
+											<c:url var="cancelBooking"
+												value="/admin/appointment/canceled">
+												<c:param name="bookingId" value="${b.id}" />
+											</c:url>
+											<c:url var="succesfulBooking"
+												value="/admin/appointment/success">
+												<c:param name="bookingId" value="${b.id}" />
+											</c:url>
 											<tr>
 												<td>${index.count}</td>
 												<td>${b.bookingDate}</td>
 												<td>${b.customer.username}</td>
 												<td>${b.service.nameService}</td>
 												<td>${b.startTime}</td>
-												<td>${b.endTime}</td>
 												<td>${b.minutes}</td>
+												<td><c:if test="${b.bookingStatus.id == 1}">
+													BOOKED
+												</c:if> <c:if test="${b.bookingStatus.id == 2}">
+													CANCELLED
+												</c:if> <c:if test="${b.bookingStatus.id == 3}">
+													SUCCESSFUL
+												</c:if> <c:if test="${b.bookingStatus.id == 4}">
+													NO SHOW
+												</c:if></td>
+												<td><c:if test="${b.bookingStatus.id == 2 }">
+														<a class="btn btn-fix" style="cursor: not-allowed"
+															 readonly>Cancel</a>
+														<a class="btn btn-fix" style="cursor: not-allowed" 
+															>Successful</a>
+													</c:if> <c:if test="${b.bookingStatus.id == 3 }">
+														<a class="btn btn-fix" style="cursor: not-allowed"
+															 readonly>Cancel</a>
+														<a class="btn btn-fix" style="cursor: not-allowed"
+															>Successful</a>
+													</c:if> <c:if test="${b.bookingStatus.id == 1 }">
+														<a class="btn btn-success" href="${cancelBooking}">Cancel</a>
+														<a class="btn btn-primary" href="${succesfulBooking}">Successful</a>
+													</c:if> <c:if test="${b.bookingStatus.id == 4 }">
+														<a class="btn btn-success" href="${cancelBooking}">Cancel</a>
+														<a class="btn btn-fix" style="cursor: not-allowed"
+															>Successful</a>
+													</c:if></td>
+
 											</tr>
 										</c:forEach>
 									</tbody>

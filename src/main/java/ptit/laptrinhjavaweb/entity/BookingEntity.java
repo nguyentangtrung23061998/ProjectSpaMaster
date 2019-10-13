@@ -63,7 +63,7 @@ public class BookingEntity {
 	private CustomerEntity customer;
 
 	@ManyToOne(cascade= {CascadeType.PERSIST,CascadeType.MERGE,
-						CascadeType.DETACH,CascadeType.REFRESH},fetch=FetchType.LAZY)
+			CascadeType.DETACH,CascadeType.REFRESH},fetch=FetchType.LAZY)
 	@JoinColumn(name="bookingstatusid")
 	@JsonBackReference
 	private BookingStatusEntity bookingStatus;
