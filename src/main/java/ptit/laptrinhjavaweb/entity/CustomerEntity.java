@@ -15,12 +15,14 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-
-import org.hibernate.annotations.NotFound;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
 @Table(name = "customer")
@@ -31,17 +33,23 @@ public class CustomerEntity {
 	@Column(name = "id")
 	private Integer id;
 
-	@NotNull
+	@NotBlank(message="Username is not empty")
+	@Size(min=1,message="Username is required")
 	@Column(name = "username")
 	private String username;
 
-	@NotNull
+	@NotBlank(message="Password is not empty")
+	@Size(min=1,message="Password is required")
 	@Column(name = "password")
 	private String password;
 
+	@NotNull
+	@Pattern(regexp="^[a-z][a-z0-9_\\.]{5,32}@[a-z0-9]{2,}(\\.[a-z0-9]{2,4}){1,2}$", message="Email is invalid")
 	@Column(name = "email")
 	private String email;
 
+	@NotNull(message="Telephone is required")
+	@Pattern(regexp="^[0-9\\+]{1,}[0-9\\-]{3,15}$", message="Phone is invalid")
 	@Column(name = "telephone")
 	private String telephone;
 

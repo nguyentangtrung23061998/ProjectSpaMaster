@@ -1,17 +1,25 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Register</title>
-<link type="text/css" rel="stylesheet"  href="${pageContext.request.contextPath}/resources/bootstrap/css/bootstrap.css" media="all" />
-<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/resources/customer/css/login.css"  media="all" />
-
+<link type="text/css" rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/bootstrap/css/bootstrap.css"
+	media="all" />
+<link type="text/css" rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/customer/css/login.css"
+	media="all" />
+<style>
+.error {
+	color: red
+}
+</style>
 </head>
 <body>
-<div class="container-fluid">
+	<div class="container-fluid">
 		<div class="row no-gutter">
 			<!-- The image half -->
 			<div class="col-md-6 d-none d-md-flex bg-image"></div>
@@ -26,33 +34,41 @@
 						<div class="row">
 							<div class="col-lg-10 col-xl-7 mx-auto">
 								<h3 class="display-4">Register</h3>
-								<form:form action="${pageContext.request.contextPath}/customer/sign-up" method="POST" modelAttribute="customer">
+								<form:form
+									action="${pageContext.request.contextPath}/customer/sign-up"
+									method="POST" modelAttribute="customer">
 									<div class="form-group mb-3">
 										<form:input id="inputEmail" type="email"
-											placeholder="Email..."  path="email"
+											placeholder="Email..." path="email" value=""
 											class="form-control rounded-pill border-0 shadow-sm px-4 text-primary" />
+										<form:errors path="email" cssClass="error" />
 									</div>
 									<div class="form-group mb-3">
 										<form:input id="inputUsername" type="text"
-											placeholder="Username..." path="username"
-											class="form-control rounded-pill border-0 shadow-sm px-4" autocomplete="off" />
+											placeholder="Username..." path="username" value=""
+											class="form-control rounded-pill border-0 shadow-sm px-4"
+											 />
+										<form:errors path="username" cssClass="error" />
 									</div>
 									<div class="form-group mb-3">
 										<form:input id="inputPassword" type="password"
-											placeholder="Password..." path="password"
+											placeholder="Password..." path="password" value=""
 											class="form-control rounded-pill border-0 shadow-sm px-4 text-primary" />
+										<form:errors path="password" cssClass="error" />
 									</div>
 									<div class="form-group mb-3">
 										<form:input id="inputPhone" type="phone"
-											placeholder="Telephone number..." path="telephone"
+											placeholder="Telephone number..." path="telephone" value=""
 											class="form-control rounded-pill border-0 shadow-sm px-4 text-primary" />
+										<form:errors path="telephone" cssClass="error" />
 									</div>
 									<button type="submit"
 										class="btn btn-primary btn-block text-uppercase mb-2 rounded-pill shadow-sm">Sign
 										in</button>
 									<div class="text-center d-flex justify-content-between mt-4">
 										<p>
-											Login <a href="${pageContext.request.contextPath}/customer/login"
+											Login <a
+												href="${pageContext.request.contextPath}/customer/login"
 												class="font-italic text-muted"> <u>customer</u></a>
 										</p>
 									</div>

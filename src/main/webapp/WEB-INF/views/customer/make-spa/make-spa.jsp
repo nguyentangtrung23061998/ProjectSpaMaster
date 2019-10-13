@@ -57,7 +57,7 @@
 										data-letters="History">History</span></a></li>
 								<li><a href="profile" class="link-kumya"><span
 										data-letters="Profile">Profile</span></a></li>
-								<li><a href="${pageContext.request.contextPath }/customer/home"
+								<li><a href="${pageContext.request.contextPath }/customer/login"
 									class="link-kumya"><span data-letters="Sign Out">Sign
 											Out</span></a></li>
 							</ul>

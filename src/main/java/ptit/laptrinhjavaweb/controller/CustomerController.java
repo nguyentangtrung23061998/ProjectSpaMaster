@@ -1,49 +1,35 @@
 package ptit.laptrinhjavaweb.controller;
 
-import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
+import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
 
-import ptit.laptrinhjavaweb.dto.EmployeeServiceV;
-import ptit.laptrinhjavaweb.entity.BookingEntity;
 import ptit.laptrinhjavaweb.entity.CustomerEntity;
 import ptit.laptrinhjavaweb.entity.EmployeeEntity;
-import ptit.laptrinhjavaweb.entity.EmployeeServiceEntity;
 import ptit.laptrinhjavaweb.entity.GalleryEntity;
 import ptit.laptrinhjavaweb.entity.ServiceEntity;
-import ptit.laptrinhjavaweb.entity.StorekeeperEntity;
 import ptit.laptrinhjavaweb.repository.IAuthCustomerRepository;
-import ptit.laptrinhjavaweb.repository.IBookingRepository;
-import ptit.laptrinhjavaweb.repository.IEmployeeServiceRepository;
-import ptit.laptrinhjavaweb.repository.IGalleryReposiory;
-import ptit.laptrinhjavaweb.service.IBookingService;
-import ptit.laptrinhjavaweb.service.IBookingStatusService;
 import ptit.laptrinhjavaweb.service.ICustomerService;
 import ptit.laptrinhjavaweb.service.IEmployeeService;
-import ptit.laptrinhjavaweb.service.IEmpoyeeServiceService;
 import ptit.laptrinhjavaweb.service.IGalleryService;
 import ptit.laptrinhjavaweb.service.IServiceService;
-import ptit.laptrinhjavaweb.service.IStoreService;
-import ptit.laptrinhjavaweb.service.impl.BookingService;
 
 @Controller
 @RequestMapping("/customer")
@@ -56,12 +42,6 @@ public class CustomerController {
 	private IEmployeeService employeeService;
 
 	@Autowired
-	private IEmpoyeeServiceService employeeServiceService;
-
-	@Autowired
-	private IEmployeeServiceRepository employeeServiceRe;
-
-	@Autowired
 	private IServiceService serviceService;
 
 	@Autowired
@@ -69,15 +49,14 @@ public class CustomerController {
 
 	@Autowired
 	private IAuthCustomerRepository authService;
-
-	@Autowired
-	private IBookingService bookingService;
 	
-	@Autowired
-	private IStoreService storeService;
-	
-	@Autowired
-	private IBookingStatusService bookingStatusService;
+	@InitBinder
+	public void initBinder(WebDataBinder dataBinder) {
+		
+		StringTrimmerEditor stringTrimmerEditor = new StringTrimmerEditor(true);
+		
+		dataBinder.registerCustomEditor(String.class, stringTrimmerEditor);
+	}
 	
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String loginCustomer() {
@@ -114,9 +93,13 @@ public class CustomerController {
 
 	
 	@RequestMapping(value = "/sign-up", method = RequestMethod.POST)
-	public String successRegisterCustomer(@ModelAttribute("customer") CustomerEntity customer) {
-		customerService.saveCustomer(customer);
-		return "redirect:/customer/sign-up";
+	public String successRegisterCustomer(@Valid @ModelAttribute("customer") CustomerEntity customer,BindingResult result) {
+		if(result.hasErrors()) {
+			return "customer/login/sign-up";
+		}else {
+			customerService.saveCustomer(customer);
+			return "redirect:/customer/sign-up";
+		}
 	}
 
 	@RequestMapping(value = "/about", method = RequestMethod.GET)

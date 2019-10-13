@@ -97,15 +97,15 @@
 						<div class="col-lg-8 push-lg-4 personal-info">
 							<form:form role="form" action="${pageContext.request.contextPath}/customer/profile" modelAttribute="updateProfile" method="POST">
 								<div class="form-group row">
-									<label class="col-lg-3 col-form-label form-control-label">Username</label>
+									<label class="col-lg-3 col-form-label form-control-label" >Username</label>
 									<div class="col-lg-9">
-										<form:input class="form-control" path="username" type="text" name="username" value="${customer.username}" />
+										<input class="form-control" path="username" readonly type="text" name="username" value="${customer.username}" style="cursor: no-drop;"  />
 									</div>
 								</div>
 								<div class="form-group row">
 									<label class="col-lg-3 col-form-label form-control-label">Password</label>
 									<div class="col-lg-9">
-										<form:input class="form-control" type="password" path="password" name="password" value="${customer.password }" />
+										<form:input class="form-control" type="text" path="password" name="password" value="${customer.password }" />
 									</div>
 								</div>
 								<div class="form-group row">
