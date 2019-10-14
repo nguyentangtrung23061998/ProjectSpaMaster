@@ -2,9 +2,12 @@ package ptit.laptrinhjavaweb.controller.admin;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -40,9 +43,14 @@ public class ManagerCustomerController {
 	}
 
 	@RequestMapping(value = "/customer", method = RequestMethod.POST)
-	public String successRegisterCustomer(@ModelAttribute("customer") CustomerEntity customer) {
-		customerService.saveCustomer(customer);
-		return "redirect:/admin/customer";
+	public String successRegisterCustomer(@Valid @ModelAttribute("customer") CustomerEntity customer,BindingResult result) {
+		if(result.hasErrors()) {
+			return "admin/pages/customer";
+			
+		}else {
+			customerService.saveCustomer(customer);
+			return "redirect:/admin/customer";
+		}
 	}
 
 	@RequestMapping(value = "/customer/update", method = RequestMethod.POST)

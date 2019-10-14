@@ -302,7 +302,6 @@
 												<th>Minutes</th>
 												<th>Prices</th>
 												<th>Description</th>
-												<th>Image Path</th>
 												<th>Action</th>
 											</tr>
 										</thead>
@@ -323,7 +322,6 @@
 													<td>${s.minutes}</td>
 													<td>${s.price}</td>
 													<td>${s.description}</td>
-													<td>${s.imagePath}</td>
 													<td><a data-toggle="modal" data-target="#editService"
 														onclick="updateService(${s.id})" >Update</a>
 														 <a
@@ -406,23 +404,21 @@
 								<label class="stylelabel">Name: </label>
 								<form:input id="inputName" type="text" path="nameService"
 									class="styleinput" />
+								<form:errors path="nameService" cssClass="error" />
 							</div>
 							<div class="form-group">
 								<label class="stylelabel">Minutes: </label>
-								<form:input class="styleinput" path="minutes" type="text" />
+								<form:input class="styleinput" path="minutes" type="text" value="0" />
 							</div>
 							<div class="form-group">
 								<label class="stylelabel">Prices: </label>
-								<form:input class="styleinput" path="price" type="text" />
+								<form:input class="styleinput" path="price" type="text" value="0" />
 							</div>
 							<div class="form-group">
 								<label class="stylelabel">Description: </label>
 								<form:input class="styleinput" path="description" type="text" />
 							</div>
-							<div class="form-group">
-								<label class="stylelabel">Image path: </label>
-								<form:input class="styleinput" path="imagePath" type="text" />
-							</div>
+				
 							<div class="row m-auto">
 								<button class="btn btn-primary" type="submit"
 									id="btnAddCustomer">SUBMIT</button>
@@ -467,10 +463,7 @@
 								<label class="stylelabel">Description: </label>
 								<form:input id="inputDescription" class="styleinput" path="description" type="text" value="" />
 							</div>
-							<div class="form-group">
-								<label class="stylelabel">Image path: </label>
-								<form:input id="inputImagePath" class="styleinput" path="imagePath" type="text" value="" />
-							</div>
+							
 							<div class="row m-auto">
 								<button class="btn btn-primary" type="submit"
 									id="btnAddCustomer">SUBMIT</button>

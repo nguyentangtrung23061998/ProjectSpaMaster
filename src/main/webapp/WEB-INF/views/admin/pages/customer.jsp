@@ -72,9 +72,9 @@
 			<li class="nav-item"><a class="nav-link" href="admin/service">
 					<i class="fas fa-book"></i> <span>Manager Service</span>
 			</a></li>
-			<li class="nav-item"><a class="nav-link"
-				href="admin/employee"> <i class="fas fa-user"></i> <span>Manager
-						Employee</span></a></li>
+			<li class="nav-item"><a class="nav-link" href="admin/employee">
+					<i class="fas fa-user"></i> <span>Manager Employee</span>
+			</a></li>
 
 			<!-- Divider -->
 			<hr class="sidebar-divider d-none d-md-block">
@@ -261,7 +261,8 @@
 							class="nav-link dropdown-toggle" href="#" id="userDropdown"
 							role="button" data-toggle="dropdown" aria-haspopup="true"
 							aria-expanded="false"> <span
-								class="mr-2 d-none d-lg-inline text-gray-600 small">Trung</span> <img class="img-profile rounded-circle"
+								class="mr-2 d-none d-lg-inline text-gray-600 small">Trung</span>
+								<img class="img-profile rounded-circle"
 								src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
 						</a> <!-- Dropdown - User Information -->
 							<div
@@ -402,18 +403,22 @@
 								<label class="stylelabel">User name: </label>
 								<form:input id="inputUsername" type="text" path="username"
 									class="styleinput" />
+								<form:errors path="username" cssClass="error" />
 							</div>
 							<div class="form-group">
 								<label class="stylelabel">Password: </label>
 								<form:input class="styleinput" path="password" type="text" />
+								<form:errors path="password" cssClass="error" />
 							</div>
 							<div class="form-group">
 								<label class="stylelabel">Email: </label>
 								<form:input class="styleinput" path="email" type="text" />
+								<form:errors path="email" cssClass="error" />
 							</div>
 							<div class="form-group">
 								<label class="stylelabel">Telephone: </label>
 								<form:input class="styleinput" path="telephone" type="text" />
+								<form:errors path="telephone" cssClass="error" />
 							</div>
 							<div class="row m-auto">
 								<button class="btn btn-primary" type="submit"

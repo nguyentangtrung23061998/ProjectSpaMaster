@@ -2,13 +2,17 @@ package ptit.laptrinhjavaweb.controller.admin;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import ptit.laptrinhjavaweb.entity.EmployeeEntity;
 import ptit.laptrinhjavaweb.entity.ServiceEntity;
@@ -30,9 +34,13 @@ public class ManagerEmployeeController {
 	}
 	
 	@RequestMapping(value="/employee",method=RequestMethod.POST)
-	public String saveEmployee(Model model, @ModelAttribute("employee") EmployeeEntity employee) {
-		employeeService.saveEmployee(employee);
-		return "redirect:/admin/employee";
+	public String saveEmployee(Model model,@Valid @ModelAttribute("employee") EmployeeEntity employee,BindingResult result) {
+		if(result.hasErrors()) {
+			return "admin/pages/employee";
+		}else {
+			employeeService.saveEmployee(employee);
+			return "redirect:/admin/employee";
+		}
 	}
 	
 	@RequestMapping(value = "/employee/delete", method = RequestMethod.GET)

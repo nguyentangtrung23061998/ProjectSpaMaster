@@ -58,6 +58,12 @@
 			</props>
 		</property>
 	</bean>
+	
+	<bean id="multipartResolver" 
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+	 	<!-- maxUploadSize=20MB -->
+	 	<property name="maxUploadSize" value="20971520"/>
+	</bean>
 
 	<!-- Step 3: Setup Hibernate transaction manager -->
 	<bean id="myTransactionManager"

@@ -120,7 +120,7 @@
 								</select> <span class="text-success lead "> : </span> <select id=""
 									class="name" name="minutes">
 									<option value="0">00</option>
-									<option value="0">30</option>
+									<option value="30">30</option>
 								</select>
 							</div>
 							<div class="form-title">

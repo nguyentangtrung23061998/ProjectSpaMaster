@@ -283,13 +283,13 @@
 				<div class="container-fluid">
 
 					<!-- Page Heading -->
-					<h1 class="h3 mb-2 text-gray-800">Service</h1>
+					<h1 class="h3 mb-2 text-gray-800">Employee</h1>
 
 					<!-- DataTales Example -->
 					<div class="card shadow mb-4">
 						<div class="card-header py-3">
 							<div class="customer-title">
-								<h6>Information service</h6>
+								<h6>Information employee</h6>
 								<button data-toggle="modal" data-target="#addService">+</button>
 							</div>
 							<div class="card-body">
@@ -305,7 +305,6 @@
 												<th>Sex</th>
 												<th>Address</th>
 												<th>Major</th>
-												<th>Image Path</th>
 												<th>Action</th>
 											</tr>
 										</thead>
@@ -325,12 +324,17 @@
 													<td>${e.fullName}</td>
 													<td>${e.email}</td>
 													<td>${e.telephone}</td>
-													<td>${e.sex}</td>
+													<td>
+														<c:if test="${e.sex}">
+															Male
+														</c:if>
+														<c:if test="${!e.sex}">
+															Male
+														</c:if>
+													</td>
 													<td>${e.address}</td>
 													<td>${e.major}</td>
-													<td class="m-auto" style="text-align: center"><img
-														alt="" src="${e.imagepath}" width="50px" height="50px">
-													</td>
+											
 													<td><a data-toggle="modal" data-target="#editEmployee"
 														onclick="updateEmployee(${e.id})">Update</a> <a
 														href="${deleteLink}">Delete</a></td>
@@ -407,22 +411,26 @@
 					<div class="modal-body">
 						<form:form
 							action="${pageContext.request.contextPath}/admin/employee"
-							method="POST" modelAttribute="employee">
+							method="POST" modelAttribute="employee" >
 							<div class="form-group">
 								<label class="stylelabel">Fullname: </label>
 								<form:input type="text" path="fullName" class="styleinput" />
+								<form:errors path="fullName" cssClass="error" />
 							</div>
 							<div class="form-group">
 								<label class="stylelabel">Email: </label>
 								<form:input class="styleinput" path="email" type="text" />
+								<form:errors path="email" cssClass="error" />
 							</div>
 							<div class="form-group">
 								<label class="stylelabel">Address: </label>
 								<form:input class="styleinput" path="address" type="text" />
+								<form:errors path="address" cssClass="error" />
 							</div>
 							<div class="form-group">
 								<label class="stylelabel">Major: </label>
 								<form:input class="styleinput" path="major" type="text" />
+								<form:errors path="major" cssClass="error" />
 							</div>
 							<div class="form-group">
 								<label class="stylelabel">Sex</label>
@@ -435,11 +443,7 @@
 							<div class="form-group">
 								<label class="stylelabel">Telephone: </label>
 								<form:input class="styleinput" path="telephone" type="text" />
-							</div>
-
-							<div class="form-group">
-								<label class="stylelabel">Image path: </label>
-								<form:input class="styleinput" path="imagepath" type="text" />
+								<form:errors path="telephone" cssClass="error" />
 							</div>
 							<div class="row m-auto">
 								<button class="btn btn-primary" type="submit"
@@ -456,7 +460,7 @@
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header title_header">
-						<h4 class="modal-title">Service</h4>
+						<h4 class="modal-title">Employee</h4>
 						<button type="button" class="close" data-dismiss="modal" x
 							id="btnAddClose">&times;</button>
 					</div>
@@ -496,10 +500,6 @@
 								<form:input id="inputTelephoneEdit" class="styleinput" path="telephone" type="text" value="" />
 							</div>
 
-							<div class="form-group">
-								<label class="stylelabel">Image path: </label>
-								<form:input id="inputImagePathEdit" class="styleinput" path="imagepath" type="text" value="" />
-							</div>
 							<div class="row m-auto">
 								<button class="btn btn-primary" type="submit"
 									id="btnUpdateEmployee">SUBMIT</button>

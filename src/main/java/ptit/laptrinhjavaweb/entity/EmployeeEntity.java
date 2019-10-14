@@ -16,6 +16,9 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
@@ -26,24 +29,31 @@ public class EmployeeEntity {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
+	@Size(min=1,message="Fullname is required")
 	@Column(name = "fullname")
 	private String fullName;
 
+	@Size(min=1,message="Email is required")
 	@Column(name = "email")
 	private String email;
 
+
+	@NotNull(message="Telephone is required")
+	@Pattern(regexp="^[0-9\\+]{1,}[0-9\\-]{3,15}$", message="Phone is invalid")
 	@Column(name = "telephone")
 	private String telephone;
 
 	@Column(name = "sex")
 	private boolean sex;
 
+	@Size(min=1,message="Address is required")
 	@Column(name = "address")
 	private String address;
 
 	@Column(name = "imagepath")
 	private String imagepath;
 	
+	@Size(min=1,message="Major is required")
 	@Column(name="major")
 	private String major;
 

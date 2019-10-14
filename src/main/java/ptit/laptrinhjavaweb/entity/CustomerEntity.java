@@ -33,12 +33,10 @@ public class CustomerEntity {
 	@Column(name = "id")
 	private Integer id;
 
-	@NotBlank(message="Username is not empty")
 	@Size(min=1,message="Username is required")
 	@Column(name = "username")
 	private String username;
 
-	@NotBlank(message="Password is not empty")
 	@Size(min=1,message="Password is required")
 	@Column(name = "password")
 	private String password;

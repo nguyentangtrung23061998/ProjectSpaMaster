@@ -2,9 +2,12 @@ package ptit.laptrinhjavaweb.controller.admin;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -29,10 +32,14 @@ public class ManagerServiceController {
 	}
 	
 	@RequestMapping(value="/service",method=RequestMethod.POST)
-	public String postService(Model model, @ModelAttribute("service") ServiceEntity service) {
+	public String postService(Model model,@Valid @ModelAttribute("service") ServiceEntity service,BindingResult result) {
 		System.out.println(service);
-		serviceService.saveService(service);
-		return "redirect:/admin/service";
+		if(result.hasErrors()) {
+			return "admin/pages/service";
+		}else {
+			serviceService.saveService(service);
+			return "redirect:/admin/service";
+		}
 	}
 	
 	@RequestMapping(value = "/service/delete", method = RequestMethod.GET)
