@@ -38,9 +38,17 @@ public class ProfileCustomer {
 		HttpSession session = req.getSession();
 		CustomerEntity customerNew = (CustomerEntity) session.getAttribute("customer");
 		customer.setModifieddate(new Timestamp(System.currentTimeMillis()));
+		customer.setId(customerNew.getId());
 		customer.setCreatedDate(customerNew.getCreatedDate());
 		customer.setModifiedBy(customer.getUsername());
 		customerService.saveCustomer(customer);
-		return "redirect:/customer/profile";
+		if(customer != null) {
+			HttpSession httpSession = req.getSession();
+			httpSession.setAttribute("customer", customer);
+			return "redirect:/customer/profile";
+		}
+		else {
+			return "customer/make-spa/profile-customer";
+		}
 	}
 }

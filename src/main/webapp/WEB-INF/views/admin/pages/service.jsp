@@ -65,17 +65,17 @@
 				href="admin/appointment"> <i class="fas fa-fw fa-table"></i> <span>Appointment</span>
 			</a></li>
 
-			<li class="nav-item"><a class="nav-link"
-				href="admin/customer">  <i class="fas fa-user-tag"></i> <span>Manager
-						Customer</span></a></li>
+			<li class="nav-item"><a class="nav-link" href="admin/customer">
+					<i class="fas fa-user-tag"></i> <span>Manager Customer</span>
+			</a></li>
 
 			<li class="nav-item active"><a class="nav-link"
 				href="admin/service"> <i class="fas fa-book"></i> <span>Manager
 						Service</span></a></li>
-			<li class="nav-item"><a class="nav-link"
-				href="admin/employee">  <i class="fas fa-user"></i> <span>Manager
-						Employee</span></a></li>
-			
+			<li class="nav-item"><a class="nav-link" href="admin/employee">
+					<i class="fas fa-user"></i> <span>Manager Employee</span>
+			</a></li>
+
 			<!-- Divider -->
 			<hr class="sidebar-divider d-none d-md-block">
 
@@ -261,7 +261,8 @@
 							class="nav-link dropdown-toggle" href="#" id="userDropdown"
 							role="button" data-toggle="dropdown" aria-haspopup="true"
 							aria-expanded="false"> <span
-								class="mr-2 d-none d-lg-inline text-gray-600 small">Trung</span> <img class="img-profile rounded-circle"
+								class="mr-2 d-none d-lg-inline text-gray-600 small">Trung</span>
+								<img class="img-profile rounded-circle"
 								src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
 						</a> <!-- Dropdown - User Information -->
 							<div
@@ -300,12 +301,13 @@
 												<th>#</th>
 												<th>Name</th>
 												<th>Minutes</th>
-												<th>Prices</th>
+												<th>Prices(USD)</th>
+												<th>Image</th>
 												<th>Description</th>
 												<th>Action</th>
 											</tr>
 										</thead>
-										
+
 										<tbody>
 											<c:forEach var="s" varStatus="index" items="${services}">
 												<c:url var="updateLink"
@@ -320,16 +322,17 @@
 													<td>${index.count}</td>
 													<td>${s.nameService}</td>
 													<td>${s.minutes}</td>
-													<td>${s.price}</td>
+													<td>${s.price }</td>
+													<td><img src="files/${s.imagePath }"
+														style="width: 50px; height: 50px;"></td>
 													<td>${s.description}</td>
 													<td><a data-toggle="modal" data-target="#editService"
-														onclick="updateService(${s.id})" >Update</a>
-														 <a
+														onclick="updateService(${s.id})">Update</a> <a
 														href="${deleteLink}">Delete</a></td>
 												</tr>
 											</c:forEach>
 										</tbody>
-										
+
 									</table>
 								</div>
 							</div>
@@ -399,7 +402,8 @@
 					<div class="modal-body">
 						<form:form
 							action="${pageContext.request.contextPath}/admin/service"
-							method="POST" modelAttribute="service">
+							method="POST" modelAttribute="service"
+							enctype="multipart/form-data">
 							<div class="form-group">
 								<label class="stylelabel">Name: </label>
 								<form:input id="inputName" type="text" path="nameService"
@@ -408,17 +412,23 @@
 							</div>
 							<div class="form-group">
 								<label class="stylelabel">Minutes: </label>
-								<form:input class="styleinput" path="minutes" type="text" value="0" />
+								<form:input class="styleinput" path="minutes" type="text"
+									value="0" />
 							</div>
 							<div class="form-group">
 								<label class="stylelabel">Prices: </label>
-								<form:input class="styleinput" path="price" type="text" value="0" />
+								<form:input class="styleinput" path="price" type="text"
+									value="0" />
+							</div>
+							<div class="form-group">
+								<label class="stylelabel">Image: </label> <input
+									class="styleinput" name="image" type="file" />
 							</div>
 							<div class="form-group">
 								<label class="stylelabel">Description: </label>
 								<form:input class="styleinput" path="description" type="text" />
 							</div>
-				
+
 							<div class="row m-auto">
 								<button class="btn btn-primary" type="submit"
 									id="btnAddCustomer">SUBMIT</button>
@@ -443,27 +453,36 @@
 					<div class="modal-body">
 						<form:form
 							action="${pageContext.request.contextPath}/admin/service/update"
-							method="POST" modelAttribute="service">
+							method="POST" modelAttribute="service" enctype="multipart/form-data">
 							<form:input id="inputIdService" type="hidden" path="id"
-									class="styleinput" value=""/>
+								class="styleinput" value="" />
 							<div class="form-group">
 								<label class="stylelabel">Name: </label>
 								<form:input id="inputNameService" type="text" path="nameService"
-									class="styleinput" value=""/>
+									class="styleinput" value="" />
 							</div>
 							<div class="form-group">
 								<label class="stylelabel">Minutes: </label>
-								<form:input id="inputMinutes" class="styleinput" path="minutes" type="text" value="" />
+								<form:input id="inputMinutes" class="styleinput" path="minutes"
+									type="text" value="" />
 							</div>
 							<div class="form-group">
 								<label class="stylelabel">Prices: </label>
-								<form:input id="inputPrice" class="styleinput" path="price" type="text" value="" />
+								<form:input id="inputPrice" class="styleinput" path="price"
+									type="text" value="" />
+							</div>
+							<div class="form-group">
+								<label class="stylelabel">Image: </label> 
+								<input id="inputImagePath" class="styleinput"
+									name="image" type="file" value="" />
+								<img src="" width="150px" id="imgEdit" style="margin-top:50px">
 							</div>
 							<div class="form-group">
 								<label class="stylelabel">Description: </label>
-								<form:input id="inputDescription" class="styleinput" path="description" type="text" value="" />
+								<form:input id="inputDescription" class="styleinput"
+									path="description" type="text" value="" />
 							</div>
-							
+
 							<div class="row m-auto">
 								<button class="btn btn-primary" type="submit"
 									id="btnAddCustomer">SUBMIT</button>
@@ -507,8 +526,10 @@
 					$('#inputMinutes').val(data.minutes);
 					$('#inputPrice').val(data.price);
 					$('#inputDescription').val(data.description);
-					$('#inputImagePath').val(data.imagePath);
+					//$('#inputImagePath').val(data.imagePath);
 					$('#inputIdService').val(data.id);
+					var imageParse="files/"+data.imagePath;
+					$('#imgEdit').attr("src",imageParse);
 					//$('#inputTokenEdit').val(data.token);
 					//$('#inputCreateByEdit').val(data.createdBy);
 					//$('#inputModifiedByEdit').val(data.modifiedBy);
@@ -516,8 +537,15 @@
 				}
 			}
 			
+			
 		</script>
-
+		<c:if test="${modelOpen == 'yes'}">
+			<script>
+  		$(window).on('load',function(){
+	        $('#addService').modal('show');
+	    });
+  	</script>
+		</c:if>
 
 
 

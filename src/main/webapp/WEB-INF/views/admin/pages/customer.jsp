@@ -538,8 +538,13 @@
 			}
 		</script>
 
-
-
+		<c:if test="${modelOpen == 'yes'}">
+			<script>
+  		$(window).on('load',function(){
+	        $('#addCus').modal('show');
+	    });
+  	</script>
+		</c:if>
 
 		<script
 			src="resources/admin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

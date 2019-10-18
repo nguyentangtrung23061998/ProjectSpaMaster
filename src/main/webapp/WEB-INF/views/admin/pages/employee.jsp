@@ -6,14 +6,14 @@
 <html lang="en">
 
 <head>
-
+<base href="${pageContext.servletContext.contextPath }/">
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="description" content="">
 <meta name="author" content="">
-<base href="${pageContext.servletContext.contextPath }/">
+
 <title>Manager Employee</title>
 
 <!-- Custom fonts for this template -->
@@ -261,13 +261,14 @@
 							class="nav-link dropdown-toggle" href="#" id="userDropdown"
 							role="button" data-toggle="dropdown" aria-haspopup="true"
 							aria-expanded="false"> <span
-								class="mr-2 d-none d-lg-inline text-gray-600 small">Trung</span> <img class="img-profile rounded-circle"
+								class="mr-2 d-none d-lg-inline text-gray-600 small">Trung</span>
+								<img class="img-profile rounded-circle"
 								src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
 						</a> <!-- Dropdown - User Information -->
 							<div
 								class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
 								aria-labelledby="userDropdown">
-								
+
 								<a class="dropdown-item" href="admin/login"> <i
 									class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
 									Logout
@@ -303,6 +304,7 @@
 												<th>Email</th>
 												<th>Telephone</th>
 												<th>Sex</th>
+												<th>Image Path</th>
 												<th>Address</th>
 												<th>Major</th>
 												<th>Action</th>
@@ -324,17 +326,16 @@
 													<td>${e.fullName}</td>
 													<td>${e.email}</td>
 													<td>${e.telephone}</td>
-													<td>
-														<c:if test="${e.sex}">
+													<td><c:if test="${e.sex}">
 															Male
-														</c:if>
-														<c:if test="${!e.sex}">
+														</c:if> <c:if test="${!e.sex}">
 															Male
-														</c:if>
-													</td>
+														</c:if></td>
+													<td><img
+														src="${pageContext.servletContext.contextPath}/files/${e.imagepath}"
+														style="width: 50px; height: 50px;"></td>
 													<td>${e.address}</td>
 													<td>${e.major}</td>
-											
 													<td><a data-toggle="modal" data-target="#editEmployee"
 														onclick="updateEmployee(${e.id})">Update</a> <a
 														href="${deleteLink}">Delete</a></td>
@@ -349,6 +350,7 @@
 
 					</div>
 					<!-- /.container-fluid -->
+
 
 				</div>
 				<!-- End of Main Content -->
@@ -402,8 +404,8 @@
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header title_header">
-						<h4 class="modal-title">Service</h4>
-						<button type="button" class="close" data-dismiss="modal" x
+						<h4 class="modal-title">Employee</h4>
+						<button type="button" class="close" data-dismiss="modal"
 							id="btnAddClose">&times;</button>
 					</div>
 
@@ -411,7 +413,8 @@
 					<div class="modal-body">
 						<form:form
 							action="${pageContext.request.contextPath}/admin/employee"
-							method="POST" modelAttribute="employee" >
+							method="POST" modelAttribute="employee"
+							enctype="multipart/form-data">
 							<div class="form-group">
 								<label class="stylelabel">Fullname: </label>
 								<form:input type="text" path="fullName" class="styleinput" />
@@ -426,6 +429,10 @@
 								<label class="stylelabel">Address: </label>
 								<form:input class="styleinput" path="address" type="text" />
 								<form:errors path="address" cssClass="error" />
+							</div>
+							<div class="form-group">
+								<label class="stylelabel">Image: </label> <input
+									class="styleinput" name="image" type="file" />
 							</div>
 							<div class="form-group">
 								<label class="stylelabel">Major: </label>
@@ -469,27 +476,39 @@
 					<div class="modal-body">
 						<form:form
 							action="${pageContext.request.contextPath}/admin/employee/update"
-							method="POST" modelAttribute="employee">
-							<form:input id="inputIdEmployee" type="hidden" path="id" class="styleinput" value="" />
-							<div class="form-group"> 
+							method="POST" modelAttribute="employee" enctype="multipart/form-data">
+							<form:input id="inputIdEmployee" type="hidden" path="id"
+								class="styleinput" value="" />
+							<div class="form-group">
 								<label class="stylelabel">Fullname: </label>
-								<form:input id="inputFullnameEdit" type="text" path="fullName" class="styleinput" value="" />
+								<form:input id="inputFullnameEdit" type="text" path="fullName"
+									class="styleinput" value="" />
 							</div>
 							<div class="form-group">
 								<label class="stylelabel">Email: </label>
-								<form:input id="inputEmailEdit" class="styleinput" path="email" type="text" value="" />
+								<form:input id="inputEmailEdit" class="styleinput" path="email"
+									type="text" value="" />
 							</div>
 							<div class="form-group">
 								<label class="stylelabel">Address: </label>
-								<form:input id="inputAddressEdit" class="styleinput" path="address" type="text" value="" />
+								<form:input id="inputAddressEdit" class="styleinput"
+									path="address" type="text" value="" />
+							</div>
+							<div class="form-group">
+								<label class="stylelabel">Image: </label> 
+								<input id="inputImgInput" class="styleinput"
+									name="image" type="file" value="" />
+								<img src="" width="150px" id="imgEdit" style="margin-top:50px">
 							</div>
 							<div class="form-group">
 								<label class="stylelabel">Major: </label>
-								<form:input id="inputMajorEdit" class="styleinput" path="major" type="text" value="" />
+								<form:input id="inputMajorEdit" class="styleinput" path="major"
+									type="text" value="" />
 							</div>
 							<div class="form-group">
 								<label class="stylelabel">Sex</label>
-								<form:select id="inputSexEdit" path="sex" class="styleinput" value="">
+								<form:select id="inputSexEdit" path="sex" class="styleinput"
+									value="">
 									<form:option value="1" label="Nam" />
 									<form:option value="0" label="Nữ" />
 								</form:select>
@@ -497,7 +516,8 @@
 
 							<div class="form-group">
 								<label class="stylelabel">Telephone: </label>
-								<form:input id="inputTelephoneEdit" class="styleinput" path="telephone" type="text" value="" />
+								<form:input id="inputTelephoneEdit" class="styleinput"
+									path="telephone" type="text" value="" />
 							</div>
 
 							<div class="row m-auto">
@@ -539,7 +559,7 @@
 				})
 
 				function showEditHandle(data) {
-					
+					console.log(data);
 					$('#inputIdEmployee').val(data.id);
 					$('#inputFullnameEdit').val(data.fullName);
 					$('#inputEmailEdit').val(data.email);
@@ -552,12 +572,21 @@
 					}
 					$('#inputTelephoneEdit').val(data.telephone);
 					$('#inputImagePathEdit').val(data.imagepath);
-				
+					var imageParse="files/"+data.imagepath;
+					$('#imgEdit').attr("src",imageParse);
+					///inputImag'inputImagePathEdit'$('#inputFileEdit').val(data.imagepath);
 				}
 			}
 			
 		</script>
 
+		<c:if test="${modelOpen == 'yes'}">
+			<script>
+  		$(window).on('load',function(){
+	        $('#addService').modal('show');
+	    });
+  	</script>
+		</c:if>
 
 
 

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import ptit.laptrinhjavaweb.entity.CustomerEntity;
+import ptit.laptrinhjavaweb.entity.EmployeeEntity;
 import ptit.laptrinhjavaweb.repository.IAuthCustomerRepository;
 import ptit.laptrinhjavaweb.service.ICustomerService;
 import ptit.laptrinhjavaweb.service.impl.CustomerService;
@@ -43,8 +44,11 @@ public class ManagerCustomerController {
 	}
 
 	@RequestMapping(value = "/customer", method = RequestMethod.POST)
-	public String successRegisterCustomer(@Valid @ModelAttribute("customer") CustomerEntity customer,BindingResult result) {
+	public String successRegisterCustomer(Model model,@Valid @ModelAttribute("customer") CustomerEntity customer,BindingResult result) {
 		if(result.hasErrors()) {
+			model.addAttribute("modelOpen","yes");
+			List<CustomerEntity> listCus = customerService.getCustomers();
+			model.addAttribute("listCus", listCus);
 			return "admin/pages/customer";
 			
 		}else {
